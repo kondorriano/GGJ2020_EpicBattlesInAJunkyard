@@ -5,23 +5,45 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    int _playerID = 0;
-    [SerializeField] float _movementAcceleration = 1;
-    [SerializeField] float _maximumVelocity = 10;
+    #region Human Data
+    [Header("Human Data")]
+    [SerializeField] Rigidbody2D _humanRigidbody = null;
+    [SerializeField] float _constantVelocity = 10;
+    [SerializeField] float _jumpForce = 4;
+
     Vector2 _inputDirection;
     Vector2 _inputPieceDirection;
+    #endregion
+
+    #region Vehicle Data
+    [Header("Vehicle Data")]
+    #endregion
+
+    #region General
+    int _playerID = 0;
+    bool _outsideVehicle = true;
+    bool OutsideVehicle
+    {
+        get { return _outsideVehicle; }
+        set
+        {
+            _outsideVehicle = value;
+            //SetInputSystem
+            Debug.Log("Swap Input System");
+        }
+    }
+    #endregion
 
     public Transform ToFollow
     {
-        get { return transform; }
+        get { return _humanRigidbody?.transform; }
     }
 
     public MeshRenderer HumanMeshRenderer
     {
-        get { return transform.Find("Human")?.GetComponent<MeshRenderer>(); }
+        get { return _humanRigidbody?.GetComponent<MeshRenderer>(); }
     }
 
-    Rigidbody2D _rigidbody;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +53,6 @@ public class PlayerController : MonoBehaviour
     public void Init(int playerID)
     {
         _playerID = playerID;
-        _rigidbody = GetComponent<Rigidbody2D>();
     }
 
     private void FixedUpdate()
@@ -41,32 +62,33 @@ public class PlayerController : MonoBehaviour
 
     void FixedTick(float fixedDeltaTime)
     {
-        ApplyMovement(fixedDeltaTime);
+        ApplyHumanMovement(fixedDeltaTime);
     }
 
-    void ApplyMovement(float fixedDeltaTime)
+    #region Human Actions
+    void ApplyHumanMovement(float fixedDeltaTime)
     {
-        if(_inputDirection.x == 0)
+        if (_inputDirection.x == 0)
         {
-            Vector2 velocity = _rigidbody.velocity;
+            Vector2 velocity = _humanRigidbody.velocity;
             velocity.x = 0;//Mathf.Lerp(velocity.x, 0, .7f);
-            _rigidbody.velocity = velocity;
+            _humanRigidbody.velocity = velocity;
         }
         else
         {
-            Vector2 velocity = _rigidbody.velocity;
-            velocity.x += _inputDirection.x * _maximumVelocity;//_movementAcceleration * Time.fixedDeltaTime;
-            velocity.x = Mathf.Clamp(velocity.x , - _maximumVelocity, _maximumVelocity);
-            _rigidbody.velocity = velocity;
+            Vector2 velocity = _humanRigidbody.velocity;
+            velocity.x += _inputDirection.x * _constantVelocity;//_movementAcceleration * Time.fixedDeltaTime;
+            velocity.x = Mathf.Clamp(velocity.x, -_constantVelocity, _constantVelocity);
+            _humanRigidbody.velocity = velocity;
         }
     }
-
-    void ApplyJump()
+    void ApplyHumanJump()
     {
-        _rigidbody.AddForce(Vector2.up*3, ForceMode2D.Impulse);
+        _humanRigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
     }
+    #endregion
 
-    #region Input Events
+    #region Input Human Events
     public void MovePlayerEvent(InputAction.CallbackContext context)
     {
         _inputDirection = context.ReadValue<Vector2>();
@@ -90,7 +112,7 @@ public class PlayerController : MonoBehaviour
         if (context.started)
         {
             Debug.Log("JAMPU");
-            ApplyJump();
+            ApplyHumanJump();
         }        
     }
 

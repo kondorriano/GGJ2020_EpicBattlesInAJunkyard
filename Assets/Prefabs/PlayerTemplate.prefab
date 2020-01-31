@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 451437093616966048}
   - component: {fileID: 451437093616966052}
+  - component: {fileID: 5958588986530298978}
   m_Layer: 0
   m_Name: PlayerTemplate
   m_TagString: Untagged
@@ -45,8 +46,122 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bc11e603bd362341b1b7014174cb047, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementAcceleration: 14
-  _maximumVelocity: 10
+  _humanRigidbody: {fileID: 451437094121796439}
+  _constantVelocity: 10
+--- !u!114 &5958588986530298978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451437093616966049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: e2bdcfab0e52557489b2836c8a37314e,
+    type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 451437093616966052}
+        m_MethodName: MovePlayerEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b62cf82d-6b67-47c0-bd10-0f2590f66a46
+    m_ActionName: Player/MovePlayer[/XInputControllerWindows/leftStick]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 451437093616966052}
+        m_MethodName: MovePieceEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ed50b856-24a1-4eca-b0c1-392309cce3ef
+    m_ActionName: Player/MovePiece[/XInputControllerWindows/rightStick]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 451437093616966052}
+        m_MethodName: InteractEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a0320685-a73b-4f86-9c72-faed104912a7
+    m_ActionName: Player/Interact[/XInputControllerWindows/buttonWest]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 451437093616966052}
+        m_MethodName: JumpEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 93be129d-5804-48d0-afd1-fcb62f39af2f
+    m_ActionName: Player/Jump[/XInputControllerWindows/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 451437093616966052}
+        m_MethodName: RotatePieceEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ddf33c02-dee7-4d4b-bc0f-30843e42098d
+    m_ActionName: Player/RotatePiece[/XInputControllerWindows/leftTrigger,/XInputControllerWindows/rightTrigger]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f7d99166-3fcd-4d26-b5ec-dd58575608ca
+    m_ActionName: Car/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3c152d57-6660-468d-9d03-4543b91ae4f3
+    m_ActionName: UI/New action
+  m_NeverAutoSwitchControlSchemes: 1
+  m_DefaultControlScheme: Gamepad
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &451437094121796437
 GameObject:
   m_ObjectHideFlags: 0
