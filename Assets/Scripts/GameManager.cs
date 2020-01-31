@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     }
 
     PlayerHolder[] players;
+    CameraDirector camDirector;
 
     void Start()
     {
@@ -40,6 +41,10 @@ public class GameManager : MonoBehaviour
                     if (p != null)
                         p.Destroy();
 
+
+            if (camDirector != null)
+                Destroy(camDirector);
+
             players = new PlayerHolder[PlayerCount];
 
             Camera CameraTemplate = transform.Find("CameraTemplate")?.GetComponent<Camera>();
@@ -54,38 +59,54 @@ public class GameManager : MonoBehaviour
             {
                 players[i] = new PlayerHolder();
 
-                // Create camera
-                players[i].camera = Instantiate(CameraTemplate);
-                players[i].camera.gameObject.SetActive(true);
-                players[i].camera.gameObject.name = string.Format("PlayerCamera{0}", i + 1);
-
-                Rect rect = players[i].camera.rect;
-                rect.x = (i % 2) * 0.5f;
-                rect.width = 0.5f;
-
-                if (PlayerCount > 2)
-                {
-                    rect.height = 0.5f;
-                    if ((i / 2) < 1)
-                        rect.y = 0.5f;
-                }
-
-                players[i].camera.rect = rect;
-
                 // Create player
                 players[i].player = Instantiate(PlayerTemplate);
                 players[i].player.gameObject.SetActive(true);
+                players[i].player.gameObject.name = string.Format("Player{0}", i + 1);
 
                 float side = ((i % 2) * 2) - 1.0f;
                 float team = ((i / 2) * 2) - 1.0f;
                 players[i].player.transform.position = new Vector3(50.0f * side + 3.0f * team, 0, 0);
 
-                MeshRenderer plRender = players[i].player.GetComponent<MeshRenderer>();
+                MeshRenderer plRender = players[i].player.HumanMeshRenderer;
                 if (plRender && PlayerMaterials != null && i < PlayerMaterials.Length)
                     plRender.material = PlayerMaterials[i];
 
-                CameraPlayer cp = players[i].camera.GetComponent<CameraPlayer>();
-                cp.Follow = players[i].player.transform;
+                if (PlayerCount > 3)
+                {
+                    // Create camera
+                    players[i].camera = Instantiate(CameraTemplate);
+                    players[i].camera.gameObject.SetActive(true);
+                    players[i].camera.gameObject.name = string.Format("PlayerCamera{0}", i + 1);
+
+                    Rect rect = players[i].camera.rect;
+                    rect.x = (i % 2) * 0.5f;
+                    rect.width = 0.5f;
+
+                    if (PlayerCount > 2)
+                    {
+                        rect.height = 0.5f;
+                        if ((i / 2) < 1)
+                            rect.y = 0.5f;
+                    }
+
+                    players[i].camera.rect = rect;
+
+                    CameraPlayer cp = players[i].camera.GetComponent<CameraPlayer>();
+                    cp.Follow = players[i].player.transform;
+                }
+                else
+                {
+                    players[i].camera = null;
+                }
+            }
+
+            if (PlayerCount == 2)
+            {
+                var camDirectorObj = new GameObject();
+                camDirectorObj.name = "CameraDirector";
+                camDirector = camDirectorObj.AddComponent<CameraDirector>();
+                camDirector.Setup(CameraTemplate, players[0].player, players[1].player);
             }
 
             while(true)

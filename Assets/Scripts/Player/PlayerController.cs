@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
     int _playerID = 0;
@@ -11,6 +10,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float _maximumVelocity = 10;
     Vector2 _inputDirection;
     Vector2 _inputPieceDirection;
+
+    public Transform ToFollow
+    {
+        get { return transform; }
+    }
+
+    public MeshRenderer HumanMeshRenderer
+    {
+        get { return transform.Find("Human")?.GetComponent<MeshRenderer>(); }
+    }
 
     Rigidbody2D _rigidbody;
     // Start is called before the first frame update
