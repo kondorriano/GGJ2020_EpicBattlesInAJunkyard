@@ -1,0 +1,197 @@
+{
+    "name": "Controls",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "a5708e41-fae9-4c71-8449-e75edd13f3aa",
+            "actions": [
+                {
+                    "name": "MovePlayer",
+                    "type": "Value",
+                    "id": "b62cf82d-6b67-47c0-bd10-0f2590f66a46",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "MovePiece",
+                    "type": "Value",
+                    "id": "ed50b856-24a1-4eca-b0c1-392309cce3ef",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "a0320685-a73b-4f86-9c72-faed104912a7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press"
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "93be129d-5804-48d0-afd1-fcb62f39af2f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "RotatePiece",
+                    "type": "Value",
+                    "id": "ddf33c02-dee7-4d4b-bc0f-30843e42098d",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "6a06ca0b-d55c-41c6-9197-f9ac6ec7fced",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "MovePlayer",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "667b69f2-4306-4ca6-a7f5-42b078b21dd2",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "MovePiece",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c1d7a0bc-67e0-44b1-83d4-6e36511891af",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fc4bc532-a02a-48a8-9724-3dd60db30fff",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Triggers",
+                    "id": "20a0a325-357f-4c07-9ae1-f0b2279354fd",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotatePiece",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "d1e3d163-45aa-447b-bd29-89a55045462b",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotatePiece",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "308bf47d-700c-4bd6-b449-b86600fae6ce",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotatePiece",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        },
+        {
+            "name": "Car",
+            "id": "65ef9b27-6538-4457-ac43-16ff0c14e12f",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "f7d99166-3fcd-4d26-b5ec-dd58575608ca",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5e6e4266-334b-47e9-a3ca-259ae0b042ca",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "UI",
+            "id": "0fa2a3ab-03b4-45a4-bbc3-f3eaf1c17fb0",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "3c152d57-6660-468d-9d03-4543b91ae4f3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "cf2aa2c2-e11c-425c-8402-78195966914b",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Gamepad",
+            "bindingGroup": "Gamepad",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
