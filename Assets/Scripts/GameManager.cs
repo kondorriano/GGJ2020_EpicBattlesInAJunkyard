@@ -4,7 +4,24 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public int PlayerCount = 2;
-    Camera[] PlayerCameras;
+    public Material[] PlayerMaterials;
+
+    class PlayerHolder
+    {
+        public Camera camera;
+        public PlayerController player;
+
+        public void Destroy()
+        {
+            if (camera != null)
+                GameObject.Destroy(camera);
+
+            if (player != null)
+                GameObject.Destroy(player);
+        }
+    }
+
+    PlayerHolder[] players;
 
     void Start()
     {
@@ -13,49 +30,66 @@ public class GameManager : MonoBehaviour
 
     IEnumerator Flow()
     {
-        while(true)
+        while (true)
         {
-            //if (Camera.main && Camera.main.enabled)
-            //    Camera.main.enabled = false;
-
             if (PlayerCount < 2 && PlayerCount > 4)
                 Debug.Break();
 
-            if (PlayerCameras != null)
-                foreach (Camera camera in PlayerCameras)
-                    if (camera != null)
-                        Destroy(camera);
+            if (players != null)
+                foreach (PlayerHolder p in players)
+                    if (p != null)
+                        p.Destroy();
 
-            PlayerCameras = new Camera[PlayerCount];
+            players = new PlayerHolder[PlayerCount];
+
             Camera CameraTemplate = transform.Find("CameraTemplate")?.GetComponent<Camera>();
+            if (CameraTemplate == null)
+                Debug.Break();
 
-            if (!CameraTemplate)
+            PlayerController PlayerTemplate = transform.Find("PlayerTemplate")?.GetComponent<PlayerController>();
+            if (PlayerTemplate == null)
                 Debug.Break();
 
             for (int i = 0; i < PlayerCount; i++)
             {
-                PlayerCameras[i] = Instantiate(CameraTemplate);
-                PlayerCameras[i].gameObject.SetActive(true);
-                PlayerCameras[i].gameObject.name = string.Format("PlayerCamera{0}", i + 1);
+                players[i] = new PlayerHolder();
 
-                Rect rect = PlayerCameras[i].rect;
+                // Create camera
+                players[i].camera = Instantiate(CameraTemplate);
+                players[i].camera.gameObject.SetActive(true);
+                players[i].camera.gameObject.name = string.Format("PlayerCamera{0}", i + 1);
+
+                Rect rect = players[i].camera.rect;
                 rect.x = (i % 2) * 0.5f;
                 rect.width = 0.5f;
 
                 if (PlayerCount > 2)
                 {
                     rect.height = 0.5f;
-                    if ((i/2) < 1)
+                    if ((i / 2) < 1)
                         rect.y = 0.5f;
                 }
 
-                PlayerCameras[i].rect = rect;
+                players[i].camera.rect = rect;
+
+                // Create player
+                players[i].player = Instantiate(PlayerTemplate);
+                players[i].player.gameObject.SetActive(true);
+
+                float side = ((i % 2) * 2) - 1.0f;
+                float team = ((i / 2) * 2) - 1.0f;
+                players[i].player.transform.position = new Vector3(50.0f * side + 3.0f * team, 0, 0);
+
+                MeshRenderer plRender = players[i].player.GetComponent<MeshRenderer>();
+                if (plRender && PlayerMaterials != null && i < PlayerMaterials.Length)
+                    plRender.material = PlayerMaterials[i];
+
+                CameraPlayer cp = players[i].camera.GetComponent<CameraPlayer>();
+                cp.Follow = players[i].player.transform;
             }
 
             while(true)
                 yield return null;
-
-            yield return null;
         }
     }
 
