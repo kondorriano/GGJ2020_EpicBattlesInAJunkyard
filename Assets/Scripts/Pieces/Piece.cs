@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
-    public bool isWheel = false;
-    public bool isAttached = false;
+    protected bool isAttached = false;
     protected Rigidbody2D rb;
-    public Rigidbody2D attachOnSpace;
-    public List<Joint2D> activeJoints;
+    //public Rigidbody2D attachOnSpace;
+    public Rigidbody2D attachOnAwake;
+    protected List<Joint2D> activeJoints;
+    [HideInInspector]
     public List<Piece> piecesAttachedToMe;
     public float breakForce = 750;
 
@@ -17,44 +18,14 @@ public class Piece : MonoBehaviour
         activeJoints = new List<Joint2D>();
         piecesAttachedToMe = new List<Piece>();
         rb = GetComponent<Rigidbody2D>();
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (isAttached)
-            {
-                Unattach();
-            }
-            else
-            {
-                if (attachOnSpace != null) AttachToRB(attachOnSpace);
-            }
-        }
-        ApplyAction(Input.GetAxis("Horizontal"));
+        //Para testear cosas de pieces
+        if (attachOnAwake != null) AttachToRB(attachOnAwake);
     }
 
     void OnJointBreak2D(Joint2D brokenJoint)
     {
         Unattach();
-    }
-
-    public virtual void ApplyAction(float actionValue)
-    {
-        
-    }
-
-    public virtual void ApplyAction()
-    {
-
     }
 
     public void Unattach()
@@ -72,7 +43,17 @@ public class Piece : MonoBehaviour
         isAttached = false;
     }
 
-    public virtual void AttachToRB(Rigidbody2D attachedTo)
+    public virtual void ApplyAction(float actionValue)
+    {
+        
+    }
+
+    public virtual void ApplyAction()
+    {
+
+    }
+
+    public virtual void AttachToRB(Rigidbody2D attachedTo, PlayerController pc = null)
     {
         
     }
