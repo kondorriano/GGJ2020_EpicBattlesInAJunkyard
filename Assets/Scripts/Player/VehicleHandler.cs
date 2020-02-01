@@ -50,8 +50,6 @@ public class VehicleHandler : MonoBehaviour
     void ApplyActionsRecursively(Piece piece, ActionKey action, float poweredInput)
     {
         if (piece == null) return;
-        Debug.Log(piece.name);
-        Debug.Log(piece.piecesAttachedToMe.Count);
 
         piece.ApplyAction(action, poweredInput);
         foreach (Piece newPiece in piece.piecesAttachedToMe)

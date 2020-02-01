@@ -20,6 +20,8 @@ public class StructuralPiece : Piece
                 fj2d.correctionScale = 0.25f;
                 activeJoints.Add(fj2d);
                 isAttached = true;
+                p.piecesAttachedToMe.Add(this);
+                parentPiece = p;
             }
         }
     }

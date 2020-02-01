@@ -160,6 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _exitCarOffset: {x: 0, y: 2, z: 0}
+  _vehicleCore: {fileID: 6796272486530889613}
 --- !u!1 &1295685183994525167
 GameObject:
   m_ObjectHideFlags: 0

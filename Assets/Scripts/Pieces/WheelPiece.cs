@@ -55,6 +55,8 @@ public class WheelPiece : Piece
                 activeJoints.Add(dj2d2);
                 activeJoints.Add(dj2d3);
                 isAttached = true;
+                p.piecesAttachedToMe.Add(this);
+                parentPiece = p;
             }
         }
     }
