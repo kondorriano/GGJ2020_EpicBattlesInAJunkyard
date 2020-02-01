@@ -9,7 +9,8 @@ public class Piece : MonoBehaviour
     //public Rigidbody2D attachOnSpace;
     public Rigidbody2D attachOnAwake;
     protected List<Joint2D> activeJoints;
-    protected List<Piece> piecesAttachedToMe;
+    [HideInInspector]
+    public List<Piece> piecesAttachedToMe;
     public float breakForce = 750;
 
     void Awake()
