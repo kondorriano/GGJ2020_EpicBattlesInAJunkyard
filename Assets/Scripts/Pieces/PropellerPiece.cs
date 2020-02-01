@@ -17,7 +17,7 @@ public class PropellerPiece : Piece
             rb.AddForce(actionValue * transform.up * basePropellerPower);
             if (Rotator != null)
             {
-                Rotator.Rotate(transform.up, actionValue * RotatorSpeed);
+                Rotator.Rotate(Vector3.up, actionValue * RotatorSpeed);
             }
         }
     }
@@ -41,12 +41,13 @@ public class PropellerPiece : Piece
         if (!isAttached)
         {
             Piece p = attachedTo.GetComponent<Piece>();
+            if (p != null) p = attachedTo.GetComponentInParent<Piece>();
             if (p != null)
             {
-                RelativeJoint2D rj2d = gameObject.AddComponent<RelativeJoint2D>();
+                FixedJoint2D rj2d = gameObject.AddComponent<FixedJoint2D>();
                 rj2d.connectedBody = attachedTo;
                 rj2d.breakForce = breakForce;
-                rj2d.correctionScale = 0.8f;
+                //rj2d.correctionScale = 0f;
                 activeJoints.Add(rj2d);
                 isAttached = true;
             }
