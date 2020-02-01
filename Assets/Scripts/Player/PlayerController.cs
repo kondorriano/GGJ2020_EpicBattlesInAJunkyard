@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 
     #region Vehicle Data
     [Header("Vehicle Data")]
+    [SerializeField] VehicleHandler _vehicleHandler = null;
     #endregion
 
     #region General
@@ -40,6 +41,7 @@ public class PlayerController : MonoBehaviour
         get
         {
             yield return _humanHandler?.GetComponent<MeshRenderer>();
+            yield return _vehicleHandler?.GetComponent<MeshRenderer>();
         }
     }
 
@@ -53,6 +55,7 @@ public class PlayerController : MonoBehaviour
     {
         _playerID = playerID;
         _humanHandler.Init(this);
+        _vehicleHandler.Init(playerID);
     }
 
     private void FixedUpdate()

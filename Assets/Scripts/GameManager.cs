@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
                 players[i] = Instantiate(PlayerTemplate);
                 players[i].gameObject.SetActive(true);
                 players[i].gameObject.name = string.Format("Player{0}", i + 1);
+                players[i].Init(i);
 
                 float side = ((i % 2) * 2) - 1.0f;
                 float team = ((i / 2) * 2) - 1.0f;
