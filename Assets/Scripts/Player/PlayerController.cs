@@ -10,10 +10,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] HumanHandler _humanHandler = null;
     #endregion
 
-
     #region Vehicle Data
     [Header("Vehicle Data")]
     [SerializeField] VehicleHandler _vehicleHandler = null;
+    private float power = 3;
     #endregion
 
     #region General
@@ -64,7 +64,12 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         if(OutsideVehicle) _humanHandler.FixedTick(Time.fixedDeltaTime);
-    }    
+    }  
+    
+    public void addPower(float p)
+    {
+        power += p;
+    }
 
     #region Input Human Events
     public void MovePlayerEvent(InputAction.CallbackContext context)
