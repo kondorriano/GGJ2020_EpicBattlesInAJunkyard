@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1295685182460606563}
   - component: {fileID: 1295685182460606560}
   - component: {fileID: 6796272486530889613}
+  - component: {fileID: 2693562046785075519}
   m_Layer: 0
   m_Name: CoreBase
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1295685182460606573}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.21, y: 0.63, z: 0}
   m_LocalScale: {x: 3.13, y: 0.82, z: 1}
   m_Children:
@@ -146,6 +147,19 @@ MonoBehaviour:
   piecesAttachedToMe: []
   breakForce: 750
   baseRotation: 75
+--- !u!114 &2693562046785075519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295685182460606573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 510164c5c0310464eb39a0db16bfd21f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _exitCarOffset: {x: 0, y: 2, z: 0}
 --- !u!1 &1295685183994525167
 GameObject:
   m_ObjectHideFlags: 0

@@ -179,7 +179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _humanHandler: {fileID: 610603451947850744}
-  _vehicleHandler: {fileID: 2693562046785075519}
+  _vehicleHandler: {fileID: 8891808098942863965}
 --- !u!114 &62699113519426606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,7 +282,18 @@ MonoBehaviour:
     m_ActionId: ddf33c02-dee7-4d4b-bc0f-30843e42098d
     m_ActionName: Player/RotatePiece[/XInputControllerWindows/leftTrigger,/XInputControllerWindows/rightTrigger,/Keyboard/q,/Keyboard/e]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 451437093616966052}
+        m_MethodName: ExitVehicleEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: f7d99166-3fcd-4d26-b5ec-dd58575608ca
     m_ActionName: Car/New action
   - m_PersistentCalls:
@@ -434,18 +445,6 @@ MonoBehaviour:
   _pieceConstantVelocity: 10
   _selectorRotationForce: 180
   _pieceSelectorRadius: 4
---- !u!114 &2693562046785075519
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5763564073584839439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 510164c5c0310464eb39a0db16bfd21f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &6775516329126884194
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -515,15 +514,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9656209d2c8cb8e4795b037273cb0917, type: 3}
---- !u!1 &5763564073584839439 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1295685182460606573, guid: 9656209d2c8cb8e4795b037273cb0917,
-    type: 3}
-  m_PrefabInstance: {fileID: 6775516329126884194}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5763564073584839438 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1295685182460606572, guid: 9656209d2c8cb8e4795b037273cb0917,
     type: 3}
   m_PrefabInstance: {fileID: 6775516329126884194}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8891808098942863965 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2693562046785075519, guid: 9656209d2c8cb8e4795b037273cb0917,
+    type: 3}
+  m_PrefabInstance: {fileID: 6775516329126884194}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 510164c5c0310464eb39a0db16bfd21f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

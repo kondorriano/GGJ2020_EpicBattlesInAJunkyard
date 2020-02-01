@@ -41,15 +41,19 @@ public class PlayerController : MonoBehaviour
         set
         {
             _outsideVehicle = value;
-            //SetInputSystem
-            Debug.Log("Swap Input System");
         }
     }
     #endregion
 
     public Transform ToFollow
     {
-        get { return _humanHandler?.transform; }
+        get 
+        {
+            if (OutsideVehicle)
+                return _humanHandler?.transform;
+            else
+                return _vehicleHandler?.transform;
+        }
     }
 
     public IEnumerable<MeshRenderer> ColorRenderers
@@ -61,12 +65,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        Init(_playerID);
-    }
+    PlayerInput _playerInput;
 
+    // Start is called before the first frame update
     public void Init(int playerID)
     {
         _playerID = playerID;
@@ -75,6 +76,8 @@ public class PlayerController : MonoBehaviour
 
         _humanHandler.Init(this, pieceLayer, vehicleLayer);
         _vehicleHandler.Init(vehicleLayer);
+
+        _playerInput = GetComponent<PlayerInput>();
     }
 
     private void FixedUpdate()
@@ -85,6 +88,22 @@ public class PlayerController : MonoBehaviour
     public void AddPower(float p)
     {
         power += p;
+    }
+
+    void EnterVehicle()
+    {
+        OutsideVehicle = false;
+        _playerInput.SwitchCurrentActionMap("Car");
+        _humanHandler.gameObject.SetActive(false);
+    }
+
+    void ExitVehicle()
+    {
+        OutsideVehicle = true;
+        _playerInput.SwitchCurrentActionMap("Player");
+        _humanHandler.transform.position = _vehicleHandler.ExitPosition;
+        _humanHandler.gameObject.SetActive(true);
+        _humanHandler.StartJump(true);
     }
 
     #region Input Human Events
@@ -106,7 +125,7 @@ public class PlayerController : MonoBehaviour
                 _humanHandler.AttachPiece();
             else if (_humanHandler.IsSelectedPieceIsMyBase)
             {
-
+                EnterVehicle();
             }
             else _humanHandler.GrabPiece();
         }
@@ -131,5 +150,15 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
-    
+    #region Input Vehicle Events
+    public void ExitVehicleEvent(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            ExitVehicle();
+        }
+    }
+    #endregion
+
+
 }
