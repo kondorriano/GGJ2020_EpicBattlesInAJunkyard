@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour
         if(OutsideVehicle) _humanHandler.FixedTick(Time.fixedDeltaTime);
     }  
     
-    public void addPower(float p)
+    public void AddPower(float p)
     {
         power += p;
     }

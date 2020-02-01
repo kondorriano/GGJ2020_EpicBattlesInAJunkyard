@@ -6,14 +6,15 @@ public class WheelPiece : Piece
 {
     public float baseTurnPower = 50;
 
-    public override void ApplyAction(float actionValue)
+    public override void ApplyAction(ActionKey key,float actionValue)
     {
-        if (isAttached)
+        if (isAttached && key == ActionKey.AxisH1)
         {
             rb.AddTorque(-actionValue * baseTurnPower);
         }
     }
 
+    /*
     void LateUpdate()
     {
         //Testing solo
@@ -22,7 +23,7 @@ public class WheelPiece : Piece
             float actionValue = Input.GetAxis("Horizontal");
             rb.AddTorque(-actionValue * baseTurnPower);
         }
-    }
+    }*/
 
     public override void AttachToRB(Rigidbody2D attachedTo, PlayerController pc = null)
     {
