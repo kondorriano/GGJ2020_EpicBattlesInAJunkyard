@@ -8,7 +8,7 @@ public class PropellerPiece : Piece
     public Transform Rotator;
     public float RotatorSpeed = 45;
 
-    // Update is called once per frame
+    /*
     void LateUpdate()
     {
         if (isAttached)
@@ -20,12 +20,11 @@ public class PropellerPiece : Piece
                 Rotator.Rotate(Vector3.up, actionValue * RotatorSpeed);
             }
         }
-    }
+    }*/
 
-    /*
-    public override void ApplyAction(float actionValue)
+    public override void ApplyAction(ActionKey key, float actionValue)
     {
-        if (isAttached)
+        if (isAttached && key == ActionKey.AxisV1)
         {
             rb.AddForce(actionValue * transform.up * basePropellerPower);
             if (Rotator != null)
@@ -34,7 +33,6 @@ public class PropellerPiece : Piece
             }
         }
     }
-    */
 
     public override void AttachToRB(Rigidbody2D attachedTo, PlayerController pc = null)
     {
