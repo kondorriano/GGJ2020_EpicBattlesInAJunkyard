@@ -296,7 +296,7 @@
             "id": "65ef9b27-6538-4457-ac43-16ff0c14e12f",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "ExitVehicle",
                     "type": "Button",
                     "id": "f7d99166-3fcd-4d26-b5ec-dd58575608ca",
                     "expectedControlType": "",
@@ -307,12 +307,12 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "5e6e4266-334b-47e9-a3ca-259ae0b042ca",
-                    "path": "",
+                    "id": "b7982502-8bde-4a96-ba15-515769b361a5",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "New action",
+                    "groups": "Gamepad",
+                    "action": "ExitVehicle",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

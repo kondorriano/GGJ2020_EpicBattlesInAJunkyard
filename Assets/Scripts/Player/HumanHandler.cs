@@ -175,9 +175,9 @@ PlayerController _playerController;
         _humanRigidbody.velocity = velocity;
     }
 
-    public void StartJump()
+    public void StartJump(bool forced = false)
     {
-        if (OnAir) return;
+        if (OnAir && !forced) return;
         _jumpDirection = normalizedCollision.normalized;
         ApplyJump();
         _jumping = true;
