@@ -24,7 +24,7 @@ public class BatteryPiece : Piece
                 current_pc = pc;
                 isAttached = true;
 
-                //if (_pc != null) current_pc.addPower(power);
+                if (current_pc != null) current_pc.addPower(power);
             }
         }
     }
@@ -32,7 +32,7 @@ public class BatteryPiece : Piece
     public override void Unattach()
     {
         base.Unattach();
-        //if (_pc != null) current_pc.addPower(-power);
-        //current_pc = null;
+        if (current_pc != null) current_pc.addPower(-power);
+        current_pc = null;
     }
 }
