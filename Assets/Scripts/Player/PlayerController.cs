@@ -3,6 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum ActionKey
+{
+    AxisH1,
+    AxisH2,
+    AxisV1,
+    AxisV2,
+    A,
+    B,
+    X,
+    Y,
+    LT,
+    RT,
+    LB,
+    RB
+}
+
 public class PlayerController : MonoBehaviour
 {
     #region Human Data
