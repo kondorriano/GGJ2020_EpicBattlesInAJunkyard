@@ -7,27 +7,9 @@ public class PlayerController : MonoBehaviour
 {
     #region Human Data
     [Header("Human Data")]
-    [SerializeField] Rigidbody2D _humanRigidbody = null;
-
-    [SerializeField] float _constantVelocity = 10;
-
-    [SerializeField] float _jumpForce = 4;
-    [SerializeField] float _jumpMaxTime = .15f;
-    [SerializeField] float _jumpMinTime = .25f;
-
-    [Header("Piece Selector Data")]
-    [SerializeField] Transform _pieceSelector = null;
-    [SerializeField] float _pieceConstantVelocity = 10;
-    [SerializeField] float _pieceSelectorRadius = 4;
-
-
-    private float _jumpTime;
-    private float _jumpCounter;
-    bool _jumping = false;
-
-    Vector2 _inputDirection;
-    Vector3 _inputPieceDirection;
+    [SerializeField] HumanHandler _humanHandler = null;
     #endregion
+
 
     #region Vehicle Data
     [Header("Vehicle Data")]
@@ -50,12 +32,12 @@ public class PlayerController : MonoBehaviour
 
     public Transform ToFollow
     {
-        get { return _humanRigidbody?.transform; }
+        get { return _humanHandler?.transform; }
     }
 
     public MeshRenderer HumanMeshRenderer
     {
-        get { return _humanRigidbody?.GetComponent<MeshRenderer>(); }
+        get { return _humanHandler?.GetComponent<MeshRenderer>(); }
     }
 
     // Start is called before the first frame update
@@ -67,81 +49,23 @@ public class PlayerController : MonoBehaviour
     public void Init(int playerID)
     {
         _playerID = playerID;
+        _humanHandler.Init(this);
     }
 
     private void FixedUpdate()
     {
-        if(OutsideVehicle) FixedHumanTick(Time.fixedDeltaTime);
-    }
-
-    void FixedHumanTick(float fixedDeltaTime)
-    {
-        ApplyPieceSelectorMovement(fixedDeltaTime);
-
-        HandleJump(fixedDeltaTime);
-        ApplyHumanMovement(fixedDeltaTime);
-        //ON AIR
-        if(_jumping)
-        {
-            ApplyHumanJump();
-        }
-    }
-
-    #region Human Actions
-    void ApplyPieceSelectorMovement(float fixedDeltaTime)
-    {
-        Vector3 localPosition = _pieceSelector.transform.localPosition;
-        localPosition += _inputPieceDirection * _pieceConstantVelocity * fixedDeltaTime;
-        _pieceSelector.transform.localPosition = Vector3.ClampMagnitude(localPosition, _pieceSelectorRadius);
-    }
-
-    void ApplyHumanMovement(float fixedDeltaTime)
-    {
-        if (Mathf.Abs(_inputDirection.x) <= .1f)
-        {
-            Vector2 velocity = _humanRigidbody.velocity;
-            velocity.x = 0;//Mathf.Lerp(velocity.x, 0, .7f);
-            _humanRigidbody.velocity = velocity;
-        }
-        else
-        {
-            Vector2 velocity = _humanRigidbody.velocity;
-            velocity.x += _inputDirection.x * _constantVelocity;//_movementAcceleration * Time.fixedDeltaTime;
-            velocity.x = Mathf.Clamp(velocity.x, -_constantVelocity, _constantVelocity);
-            _humanRigidbody.velocity = velocity;
-        }
-    }
-    void HandleJump(float fixedDeltaTime)
-    {
-        if (!_jumping) return;
-        _jumpCounter += fixedDeltaTime;
-        _jumping = (_jumpCounter < _jumpTime);
-    }
-    void ApplyHumanJump()
-    {
-        Vector2 velocity = _humanRigidbody.velocity;
-        velocity.y = _jumpForce ;
-        _humanRigidbody.velocity = velocity;
-    }
-
-    void StartJump()
-    {
-        ApplyHumanJump();
-        _jumping = true;
-        _jumpTime = _jumpMaxTime;
-        _jumpCounter = 0;
-    }
-    #endregion
+        if(OutsideVehicle) _humanHandler.FixedTick(Time.fixedDeltaTime);
+    }    
 
     #region Input Human Events
     public void MovePlayerEvent(InputAction.CallbackContext context)
     {
-        _inputDirection = context.ReadValue<Vector2>();
+        _humanHandler.InputDirection = context.ReadValue<Vector2>();
     }
 
     public void MovePieceEvent(InputAction.CallbackContext context)
     {
-        _inputPieceDirection = context.ReadValue<Vector2>();
+        _humanHandler.InputPieceDirection = context.ReadValue<Vector2>();
     }
 
     public void InteractEvent(InputAction.CallbackContext context)
@@ -156,11 +80,11 @@ public class PlayerController : MonoBehaviour
     {
         if (context.started)
         {
-            StartJump();
+            _humanHandler.StartJump();
         }
         else if(context.canceled)
         {
-            if (_jumping) _jumpTime = _jumpMinTime;
+            _humanHandler.JumpUp();
         }
     }
 
@@ -171,8 +95,5 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(_humanRigidbody.transform.position, _pieceSelectorRadius);
-    }
+    
 }

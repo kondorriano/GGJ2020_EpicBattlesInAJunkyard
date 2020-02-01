@@ -125,14 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bc11e603bd362341b1b7014174cb047, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _humanRigidbody: {fileID: 451437094121796439}
-  _constantVelocity: 10
-  _jumpForce: 4
-  _jumpMaxTime: 0.35
-  _jumpMinTime: 0.15
-  _pieceSelector: {fileID: 605670961}
-  _pieceConstantVelocity: 10
-  _pieceSelectorRadius: 3
+  _humanHandler: {fileID: 610603451947850744}
 --- !u!114 &62699113519426606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,6 +253,7 @@ GameObject:
   - component: {fileID: 451437094121796521}
   - component: {fileID: 451437094121796438}
   - component: {fileID: 451437094121796439}
+  - component: {fileID: 610603451947850744}
   m_Layer: 0
   m_Name: Human
   m_TagString: Untagged
@@ -363,9 +357,28 @@ Rigidbody2D:
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &610603451947850744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451437094121796437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08e2b85f1ff5dcd4e82a95b6c58ef93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _constantVelocity: 10
+  _jumpForce: 4
+  _jumpMaxTime: 0.35
+  _jumpMinTime: 0.15
+  _pieceSelector: {fileID: 605670961}
+  _pieceConstantVelocity: 10
+  _pieceSelectorRadius: 4
 --- !u!1 &451437094570045107
 GameObject:
   m_ObjectHideFlags: 0
