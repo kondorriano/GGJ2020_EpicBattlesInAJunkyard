@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
                 for (; sel < freqAccum.Length && val > freqAccum[sel]; sel++);
 
                 GameObject junk = Instantiate(JunkPrefabs[sel].prefab);
+                junk.name = string.Format("Junk{0}({1})", i, JunkPrefabs[sel].prefab.name);
                 junkList.Add(junk);
                 float pos = (float) (Math.Round(UnityEngine.Random.Range(0.0f, 1.0f)) * 2.0f - 1.0f) * 75.0f;
                 junk.transform.position = new Vector3(pos, 1.0f, 0.0f);
