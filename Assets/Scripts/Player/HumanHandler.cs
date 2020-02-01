@@ -13,7 +13,7 @@ public class HumanHandler : MonoBehaviour
     [SerializeField] float _jumpMinTime = .15f;
 
     [Header("Piece Selector Data")]
-    [SerializeField] Transform _pieceSelector = null;
+    [SerializeField] SelectorHandler _pieceSelector = null;
     [SerializeField] float _pieceConstantVelocity = 10;
     [SerializeField] float _pieceSelectorRadius = 4;
 
@@ -32,6 +32,10 @@ public class HumanHandler : MonoBehaviour
     //MOVEMENT
     public Vector2 InputDirection { get; set; }
     public Vector3 InputPieceDirection { get; set; }
+
+    //SELECTOR
+    Piece _attachedPiece = null;
+    RelativeJoint2D _attachedJoint = null;
 #endregion
 
 PlayerController _playerController;
@@ -121,6 +125,42 @@ PlayerController _playerController;
     {
         if (_jumping) _jumpTime = _jumpMinTime;
     }
+
+    public bool HasPieceAttached()
+    {
+        if (_attachedPiece != null)
+        {
+            RelativeJoint2D attachedJoint = _attachedPiece.GetComponent<RelativeJoint2D>();
+            return (_attachedJoint == attachedJoint);
+        }
+
+        return false;
+    }
+
+    public void AttachPiece()
+    {
+        if (_attachedPiece != null)
+        {
+            RelativeJoint2D attachedJoint =_attachedPiece.GetComponent<RelativeJoint2D>();
+            if (_attachedJoint == attachedJoint)
+                Destroy(_attachedJoint);
+
+            _attachedPiece = null;
+            _attachedJoint = null;
+        }
+
+        if (_pieceSelector.CurrentPiece != null)
+        {
+            _attachedPiece = _pieceSelector.CurrentPiece;
+            _attachedJoint = _attachedPiece.gameObject.AddComponent<RelativeJoint2D>();
+            _attachedJoint.connectedBody = _pieceSelector.GetComponent<Rigidbody2D>();
+            _attachedJoint.autoConfigureOffset = false;
+            _attachedJoint.correctionScale = 0.1f;
+            //_attachedJoint.linearOffset = Vector2.zero;
+            _attachedJoint.breakForce = 100.0f * _attachedPiece.GetComponent<Rigidbody2D>()?.mass ?? 1.0f;
+        }
+    }
+
     #endregion
 
     #region Collision Detection

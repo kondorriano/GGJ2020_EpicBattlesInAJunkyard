@@ -35,9 +35,12 @@ public class PlayerController : MonoBehaviour
         get { return _humanHandler?.transform; }
     }
 
-    public MeshRenderer HumanMeshRenderer
+    public IEnumerable<MeshRenderer> ColorRenderers
     {
-        get { return _humanHandler?.GetComponent<MeshRenderer>(); }
+        get
+        {
+            yield return _humanHandler?.GetComponent<MeshRenderer>();
+        }
     }
 
     // Start is called before the first frame update
@@ -72,7 +75,7 @@ public class PlayerController : MonoBehaviour
     {
         if(context.started)
         {
-            Debug.Log("Detect piece?");
+            _humanHandler.AttachPiece();
         }
     }
 

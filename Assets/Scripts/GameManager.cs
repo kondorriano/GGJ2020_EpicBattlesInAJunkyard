@@ -57,9 +57,9 @@ public class GameManager : MonoBehaviour
                 float team = ((i / 2) * 2) - 1.0f;
                 players[i].transform.position = new Vector3(50.0f * side + 3.0f * team, 0, 0);
 
-                MeshRenderer plRender = players[i].HumanMeshRenderer;
-                if (plRender && PlayerMaterials != null && i < PlayerMaterials.Length)
-                    plRender.material = PlayerMaterials[i];
+                foreach(MeshRenderer plRender in players[i].ColorRenderers)
+                    if (plRender && PlayerMaterials != null && i < PlayerMaterials.Length)
+                        plRender.material = PlayerMaterials[i];
             }
 
             if (PlayerCount == 2)
