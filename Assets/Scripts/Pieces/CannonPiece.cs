@@ -2,23 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PropellerPiece : Piece
+public class CannonPiece : Piece
 {
-    public float basePropellerPower = 50;
-    public Transform Rotator;
-    public float RotatorSpeed = 45;
+    public GameObject CannonBall;
+    public float baseImpulseShot = 1000f;
+    public float baseCannonBallSpeed = 15f;
+    // Start is called before the first frame update
 
     // Update is called once per frame
     void LateUpdate()
     {
-        if (isAttached)
+        if (isAttached && Input.GetKeyDown(KeyCode.Space) && CannonBall != null)
         {
-            float actionValue = Input.GetAxis("Vertical");
-            rb.AddForce(actionValue * transform.up * basePropellerPower);
-            if (Rotator != null)
-            {
-                Rotator.Rotate(Vector3.up, actionValue * RotatorSpeed);
-            }
+            float actionValue = 1f;
+            GameObject cb = Instantiate(CannonBall, transform.position + transform.up, transform.rotation);
+            Rigidbody2D crb = cb.GetComponent<Rigidbody2D>();
+            crb.velocity = transform.up * actionValue * baseCannonBallSpeed;
+            rb.AddForce(-transform.up * baseImpulseShot * actionValue);
         }
     }
 

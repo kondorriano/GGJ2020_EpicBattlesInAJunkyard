@@ -13,7 +13,7 @@ public class Piece : MonoBehaviour
     public List<Piece> piecesAttachedToMe;
     public float breakForce = 750;
 
-    void Awake()
+    public virtual void Awake()
     {
         activeJoints = new List<Joint2D>();
         piecesAttachedToMe = new List<Piece>();
