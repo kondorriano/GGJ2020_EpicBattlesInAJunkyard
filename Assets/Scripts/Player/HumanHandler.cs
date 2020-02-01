@@ -97,23 +97,22 @@ PlayerController _playerController;
     void ApplyJump()
     {
         Vector2 velocity = _humanRigidbody.velocity;
-        float deficit = Vector2.Dot(velocity.normalized, _jumpDirection.normalized);
-        velocity -= _jumpDirection.normalized * deficit * _jumpForce;
+        float deficit = Vector2.Dot(velocity.normalized, _jumpDirection);
+        velocity -= _jumpDirection * deficit * velocity.magnitude;
         velocity += _jumpDirection * _jumpForce;
         _humanRigidbody.velocity = velocity;
     }
 
     public void StartJump()
     {
-        Debug.Log(OnAir);
         if (OnAir) return;
-        _jumpDirection = normalizedCollision;
+        _jumpDirection = normalizedCollision.normalized;
         ApplyJump();
         _jumping = true;
         _jumpTime = _jumpMaxTime;
         _jumpCounter = 0;
 
-        normalizedCollision = accumCollision = Vector3.zero;
+        normalizedCollision = accumCollision = Vector2.zero;
         accumCollisionCount = 0;
         _cannotJump = true;
     }
@@ -134,7 +133,6 @@ PlayerController _playerController;
     {
         if (_cannotJump) return;
 
-        //Debug.Log("Stay");
         int length = collision.GetContacts(contacts);
         for (int i = 0; i < length; i++)
         {
