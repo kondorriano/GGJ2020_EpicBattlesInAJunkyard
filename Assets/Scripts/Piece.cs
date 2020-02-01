@@ -8,7 +8,6 @@ public class Piece : MonoBehaviour
     public bool isAttached = false;
     protected Rigidbody2D rb;
     public Rigidbody2D attachOnSpace;
-    public Rigidbody2D attachOnAwake;
     public List<Joint2D> activeJoints;
     public List<Piece> piecesAttachedToMe;
     public float breakForce = 750;
@@ -18,12 +17,15 @@ public class Piece : MonoBehaviour
         activeJoints = new List<Joint2D>();
         piecesAttachedToMe = new List<Piece>();
         rb = GetComponent<Rigidbody2D>();
-
-        //Para testear cosas de pieces
-        if (attachOnAwake!=null) AttachToRB(attachOnSpace);
     }
 
-    // Para testear cosas de piece
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
