@@ -8,7 +8,10 @@ public class WheelPiece : Piece
 
     public override void ApplyAction(float actionValue)
     {
-        
+        if (isAttached)
+        {
+            rb.AddTorque(-actionValue * baseTurnPower);
+        }
     }
 
     void LateUpdate()
@@ -17,7 +20,7 @@ public class WheelPiece : Piece
         if (isAttached)
         {
             float actionValue = Input.GetAxis("Horizontal");
-            if (isAttached) rb.AddTorque(-actionValue * baseTurnPower);
+            rb.AddTorque(-actionValue * baseTurnPower);
         }
     }
 

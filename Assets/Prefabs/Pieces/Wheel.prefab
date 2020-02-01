@@ -134,4 +134,4 @@ MonoBehaviour:
   attachOnAwake: {fileID: 0}
   piecesAttachedToMe: []
   breakForce: 100000
-  baseTurnPower: 50
+  baseTurnPower: 100
