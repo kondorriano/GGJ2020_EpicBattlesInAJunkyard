@@ -300,6 +300,36 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 3c152d57-6660-468d-9d03-4543b91ae4f3
     m_ActionName: UI/New action
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 451437093616966052}
+        m_MethodName: LeftJoystickEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ac12fc0c-522a-4902-b358-a414c75966e7
+    m_ActionName: Car/LeftHorizontal[/XInputControllerWindows/leftStick/x]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 451437093616966052}
+        m_MethodName: EastButtonEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e02704f7-19f6-4565-b24c-e539ac269ede
+    m_ActionName: Car/EastButton[/XInputControllerWindows/buttonEast]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
@@ -416,7 +446,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 81
+  m_Mass: 2
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -512,6 +542,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vehicle
       objectReference: {fileID: 0}
+    - target: {fileID: 2693562046785075519, guid: 9656209d2c8cb8e4795b037273cb0917,
+        type: 3}
+      propertyPath: _vehicleCore
+      value: 
+      objectReference: {fileID: 24292483254469871}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9656209d2c8cb8e4795b037273cb0917, type: 3}
 --- !u!4 &5763564073584839438 stripped
@@ -520,6 +555,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6775516329126884194}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &24292483254469871 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6796272486530889613, guid: 9656209d2c8cb8e4795b037273cb0917,
+    type: 3}
+  m_PrefabInstance: {fileID: 6775516329126884194}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dfcecd156cc3b84e9ac682d87230865, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8891808098942863965 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2693562046785075519, guid: 9656209d2c8cb8e4795b037273cb0917,

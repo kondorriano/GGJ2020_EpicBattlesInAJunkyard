@@ -14,6 +14,11 @@ public class BasePiece : Piece
         }
     }
 
+    public override void Unattach()
+    {
+        //base.Unattach();
+    }
+
     /*
     void LateUpdate()
     {

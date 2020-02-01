@@ -5,6 +5,25 @@ using UnityEngine;
 public class VehicleHandler : MonoBehaviour
 {
     [SerializeField] Vector3 _exitCarOffset = Vector3.zero;
+    [SerializeField] BasePiece _vehicleCore = null;
+
+    Vector2 _leftAxisInput = Vector2.zero;
+
+    public void SetLeftAxis(Vector2 leftInput)
+    {
+        _leftAxisInput = leftInput;
+    }
+    public void FixedTick(float fixedDeltaTime)
+    {
+        ApplyActions();
+    }
+
+    void ApplyActions()
+    {
+        if(_leftAxisInput.x != 0) ApplyInputAction(ActionKey.AxisH1, _leftAxisInput.x);
+        if (_leftAxisInput.y != 0) ApplyInputAction(ActionKey.AxisV1, _leftAxisInput.y);
+    }
+
     public Vector3 ExitPosition
     {
         get { return transform.position + _exitCarOffset; }
@@ -21,6 +40,24 @@ public class VehicleHandler : MonoBehaviour
     public void Init(int vehicleLayer)
     {
         SetLayerRecursive(gameObject, vehicleLayer);
+    }
+
+    public void ApplyInputAction(ActionKey action, float poweredInput = 1)
+    {
+        ApplyActionsRecursively(_vehicleCore, action, poweredInput);
+    }
+
+    void ApplyActionsRecursively(Piece piece, ActionKey action, float poweredInput)
+    {
+        if (piece == null) return;
+        Debug.Log(piece.name);
+        Debug.Log(piece.piecesAttachedToMe.Count);
+
+        piece.ApplyAction(action, poweredInput);
+        foreach (Piece newPiece in piece.piecesAttachedToMe)
+        {
+            ApplyActionsRecursively(newPiece, action, poweredInput);
+        }
     }
 
     private void OnDrawGizmos()

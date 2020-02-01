@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     #region Vehicle Data
     [Header("Vehicle Data")]
     [SerializeField] VehicleHandler _vehicleHandler = null;
-    private float power = 3;
+    private float _power = 3;
     #endregion
 
     #region General
@@ -82,12 +82,13 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(OutsideVehicle) _humanHandler.FixedTick(Time.fixedDeltaTime);
+        if (OutsideVehicle) _humanHandler.FixedTick(Time.fixedDeltaTime);
+        else _vehicleHandler.FixedTick(Time.fixedDeltaTime);
     }  
     
     public void AddPower(float p)
     {
-        power += p;
+        _power += p;
     }
 
     void EnterVehicle()
@@ -156,6 +157,22 @@ public class PlayerController : MonoBehaviour
         if (context.started)
         {
             ExitVehicle();
+        }
+    }
+
+    public void LeftJoystickEvent(InputAction.CallbackContext context)
+    {
+        _vehicleHandler.SetLeftAxis(context.ReadValue<Vector2>());
+    }
+
+
+    public void EastButtonEvent(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            Debug.Log("BTICAL");
+
+            _vehicleHandler.ApplyInputAction(ActionKey.B, _power);
         }
     }
     #endregion

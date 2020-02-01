@@ -299,6 +299,22 @@
                     "name": "ExitVehicle",
                     "type": "Button",
                     "id": "f7d99166-3fcd-4d26-b5ec-dd58575608ca",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "LeftJoystick",
+                    "type": "Value",
+                    "id": "ac12fc0c-522a-4902-b358-a414c75966e7",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "EastButton",
+                    "type": "Button",
+                    "id": "e02704f7-19f6-4565-b24c-e539ac269ede",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
@@ -313,6 +329,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "ExitVehicle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3147b1b4-e37c-46f9-8056-6af9d331d55c",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "EastButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ca5a025f-b835-4959-b953-b0033377c74b",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "LeftJoystick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
