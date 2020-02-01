@@ -26,7 +26,7 @@ public class WheelPiece : Piece
         if (!isAttached)
         {
             Piece p = attachedTo.GetComponent<Piece>();
-            if (p != null) p = attachedTo.GetComponentInParent<Piece>();
+            if (p == null) p = attachedTo.GetComponentInParent<Piece>();
             if (p != null)
             {
                 p.piecesAttachedToMe.Add(this);

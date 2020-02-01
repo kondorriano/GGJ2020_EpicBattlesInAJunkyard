@@ -11,7 +11,7 @@ public class StructuralPiece : Piece
         if (!isAttached)
         {
             Piece p = attachedTo.GetComponent<Piece>();
-            if (p != null) p = attachedTo.GetComponentInParent<Piece>();
+            if (p == null) p = attachedTo.GetComponentInParent<Piece>();
             if (p != null)
             {
                 RelativeJoint2D rj2d = gameObject.AddComponent<RelativeJoint2D>();
