@@ -10,14 +10,14 @@ public class SelectorHandler : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Piece piece = collision.gameObject.GetComponent<Piece>();
-        if (piece != null)
+        if (piece != null && !(piece is BasePiece))
             _currentPiece = piece;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         Piece piece = collision.gameObject.GetComponent<Piece>();
-        if (_currentPiece == null && piece != null)
+        if (_currentPiece == null && piece != null && !(piece is BasePiece))
             _currentPiece = piece;
     }
 

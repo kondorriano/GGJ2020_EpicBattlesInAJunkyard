@@ -54,8 +54,11 @@ public class PlayerController : MonoBehaviour
     public void Init(int playerID)
     {
         _playerID = playerID;
-        _humanHandler.Init(this);
-        _vehicleHandler.Init(playerID);
+        int vehicleLayer = LayerMask.NameToLayer(string.Format("Vehicle{0}", _playerID + 1));
+        int pieceLayer = LayerMask.NameToLayer(string.Format("Grabbed{0}", _playerID + 1));
+
+        _humanHandler.Init(this, pieceLayer, vehicleLayer);
+        _vehicleHandler.Init(vehicleLayer);
     }
 
     private void FixedUpdate()
@@ -78,7 +81,10 @@ public class PlayerController : MonoBehaviour
     {
         if(context.started)
         {
-            _humanHandler.AttachPiece();
+            if(_humanHandler.AttachedOverlapping != null)
+                _humanHandler.AttachPiece();
+            else
+                _humanHandler.GrabPiece();
         }
     }
 

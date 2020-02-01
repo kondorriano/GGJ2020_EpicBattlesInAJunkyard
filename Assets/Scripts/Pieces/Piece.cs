@@ -30,6 +30,7 @@ public class Piece : MonoBehaviour
 
     public virtual void Unattach()
     {
+        gameObject.layer = LayerMask.NameToLayer("Environment");
         foreach (Joint2D j in activeJoints)
         {
             Destroy(j);

@@ -36,7 +36,14 @@ public class HumanHandler : MonoBehaviour
     public Vector3 InputPieceDirection { get; set; }
 
     //SELECTOR
+    int _pieceLayer;
+    int _vehicleLayer;
     Piece _attachedPiece = null;
+    Rigidbody2D _attachedOverlapping = null;
+    public Rigidbody2D AttachedOverlapping
+    {
+        get { return _attachedOverlapping; }
+    }
     RelativeJoint2D _attachedJoint = null;
     float _pieceRotationDirection = 0;
     public float PieceRotationDirection
@@ -49,10 +56,12 @@ public class HumanHandler : MonoBehaviour
 PlayerController _playerController;
     Rigidbody2D _humanRigidbody;
 
-    public void Init(PlayerController playerController)
+    public void Init(PlayerController playerController, int pieceLayer, int vehicleLayer)
     {
         _playerController = playerController;
         _humanRigidbody = GetComponent<Rigidbody2D>();
+        _pieceLayer = pieceLayer;
+        _vehicleLayer = vehicleLayer;
     }
 
     public void FixedTick(float fixedDeltaTime)
@@ -70,9 +79,52 @@ PlayerController _playerController;
         {
             ApplyJump();
         }
+
+        HandleGrabbedPiece();
     }
 
     #region Human Actions
+    IEnumerable<RaycastHit2D> RaysFromBoundsAndDistance(Bounds bb, float dist)
+    {
+        yield return Physics2D.Raycast(bb.center, new Vector2(bb.min.x, bb.min.y), dist, 1 <<_vehicleLayer);
+        yield return Physics2D.Raycast(bb.center, new Vector2(bb.min.x, bb.max.y), dist, 1 << _vehicleLayer);
+        yield return Physics2D.Raycast(bb.center, new Vector2(bb.max.x, bb.max.y), dist, 1 << _vehicleLayer);
+        yield return Physics2D.Raycast(bb.center, new Vector2(bb.max.x, bb.min.y), dist, 1 << _vehicleLayer);
+
+        yield return Physics2D.Raycast(bb.center, new Vector2(bb.min.x, bb.center.y), bb.extents.x, 1 << _vehicleLayer);
+        yield return Physics2D.Raycast(bb.center, new Vector2(bb.max.x, bb.center.y), bb.extents.x, 1 << _vehicleLayer);
+        yield return Physics2D.Raycast(bb.center, new Vector2(bb.center.x, bb.min.y), bb.extents.y, 1 << _vehicleLayer);
+        yield return Physics2D.Raycast(bb.center, new Vector2(bb.center.x, bb.max.y), bb.extents.y, 1 << _vehicleLayer);
+    }
+
+    void HandleGrabbedPiece()
+    {
+        if (!HasPieceAttached())
+        {
+            _attachedOverlapping = null;
+            return;
+        }
+
+        Collider2D collider = _attachedPiece.GetComponent<Collider2D>();
+        if (collider == null) return;
+
+        var bb = collider.bounds;
+        float dist = Vector3.Distance(bb.min, bb.center);
+
+        float distMin = float.PositiveInfinity;
+        Rigidbody2D rb = null;
+        foreach(RaycastHit2D r in RaysFromBoundsAndDistance(bb, dist))
+        {
+            if (r && r.distance < distMin)
+            {
+                distMin = r.distance;
+                rb = r.rigidbody;
+            }
+        }
+
+        _attachedOverlapping = rb;
+    }
+
     void ApplyPieceSelectorMovement(float fixedDeltaTime)
     {
         Vector3 localPosition = _pieceSelector.transform.localPosition;
@@ -152,14 +204,34 @@ PlayerController _playerController;
 
         return false;
     }
-
     public void AttachPiece()
+    {
+        if (_attachedPiece == null) return;
+
+        RelativeJoint2D attachedJoint = _attachedPiece.GetComponent<RelativeJoint2D>();
+        if (_attachedJoint == attachedJoint)
+        {
+            //_attachedPiece.Unattach();
+            Destroy(_attachedJoint);
+
+            _attachedPiece.gameObject.layer = _vehicleLayer;
+            _attachedPiece.AttachToRB(_attachedOverlapping, _playerController);
+
+            _attachedPiece = null;
+            _attachedJoint = null;
+        }
+    }
+
+    public void GrabPiece()
     {
         if (_attachedPiece != null)
         {
-            RelativeJoint2D attachedJoint =_attachedPiece.GetComponent<RelativeJoint2D>();
+            RelativeJoint2D attachedJoint = _attachedPiece.GetComponent<RelativeJoint2D>();
             if (_attachedJoint == attachedJoint)
+            {
+                _attachedPiece.Unattach();
                 Destroy(_attachedJoint);
+            }
 
             _attachedPiece = null;
             _attachedJoint = null;
@@ -168,6 +240,8 @@ PlayerController _playerController;
         if (_pieceSelector.CurrentPiece != null)
         {
             _attachedPiece = _pieceSelector.CurrentPiece;
+            _attachedPiece.Unattach();
+            _attachedPiece.gameObject.layer = _pieceLayer;
             _pieceSelector.transform.position = _attachedPiece.transform.position;
             _attachedJoint = _attachedPiece.gameObject.AddComponent<RelativeJoint2D>();
             _attachedJoint.connectedBody = _pieceSelector.GetComponent<Rigidbody2D>();
