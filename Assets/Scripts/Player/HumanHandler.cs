@@ -222,6 +222,17 @@ PlayerController _playerController;
         }
     }
 
+    public bool IsSelectedPieceIsMyBase
+    {
+        get
+        {
+            return !HasPieceAttached()
+                && _pieceSelector.CurrentPiece != null
+                && _pieceSelector.CurrentPiece is BasePiece
+                && _pieceSelector.CurrentPiece.gameObject.layer == _vehicleLayer;
+        }
+    }
+
     public void GrabPiece()
     {
         if (_attachedPiece != null)

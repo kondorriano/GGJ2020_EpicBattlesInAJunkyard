@@ -83,8 +83,11 @@ public class PlayerController : MonoBehaviour
         {
             if(_humanHandler.AttachedOverlapping != null)
                 _humanHandler.AttachPiece();
-            else
-                _humanHandler.GrabPiece();
+            else if (_humanHandler.IsSelectedPieceIsMyBase)
+            {
+
+            }
+            else _humanHandler.GrabPiece();
         }
     }
 

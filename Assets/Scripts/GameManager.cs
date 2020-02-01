@@ -36,6 +36,15 @@ public class GameManager : MonoBehaviour
                 Destroy(cameraManager.gameObject);
             }
 
+            // CREATE INITIAL JUNK
+
+
+            // WAIT 5 SECS
+            //float time = Time.time;
+            //while ((Time.time - time) < 5)
+            //    yield return null;
+
+            // CREATE PLAYERS
             players = new PlayerController[PlayerCount];
 
             Camera CameraTemplate = transform.Find("CameraTemplate")?.GetComponent<Camera>();
