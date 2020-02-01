@@ -44,12 +44,12 @@ public class Piece : MonoBehaviour
         isAttached = false;
     }
 
-    public virtual void ApplyAction(float actionValue)
+    public virtual void ApplyAction(ActionKey key, float actionValue)
     {
         
     }
 
-    public virtual void ApplyAction()
+    public virtual void ApplyAction(ActionKey key)
     {
 
     }

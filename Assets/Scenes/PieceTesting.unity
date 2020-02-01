@@ -586,6 +586,11 @@ PrefabInstance:
       propertyPath: attachOnAwake
       value: 
       objectReference: {fileID: 273434411}
+    - target: {fileID: 9168576268769428505, guid: 9e0315e239cf6014085621cb0e7463cd,
+        type: 3}
+      propertyPath: basePropellerPower
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 9168576268769428506, guid: 9e0315e239cf6014085621cb0e7463cd,
         type: 3}
       propertyPath: m_Name
