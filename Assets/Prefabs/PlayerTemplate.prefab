@@ -431,6 +431,7 @@ MonoBehaviour:
   _jumpMinTime: 0.15
   _pieceSelector: {fileID: 655537226272730019}
   _pieceConstantVelocity: 10
+  _selectorRotationForce: 180
   _pieceSelectorRadius: 4
 --- !u!1 &451437094570045107
 GameObject:

@@ -15,7 +15,9 @@ public class HumanHandler : MonoBehaviour
     [Header("Piece Selector Data")]
     [SerializeField] SelectorHandler _pieceSelector = null;
     [SerializeField] float _pieceConstantVelocity = 10;
+    [SerializeField] float _selectorRotationForce = 135f;
     [SerializeField] float _pieceSelectorRadius = 4;
+
 
     //JUMP
     private float _jumpTime;
@@ -36,6 +38,12 @@ public class HumanHandler : MonoBehaviour
     //SELECTOR
     Piece _attachedPiece = null;
     RelativeJoint2D _attachedJoint = null;
+    float _pieceRotationDirection = 0;
+    public float PieceRotationDirection
+    {
+        get { return _pieceRotationDirection; }
+        set { _pieceRotationDirection = value; }
+    }
 #endregion
 
 PlayerController _playerController;
@@ -50,7 +58,10 @@ PlayerController _playerController;
     public void FixedTick(float fixedDeltaTime)
     {
         HandleCollision();
+
+        //SELECTOR
         ApplyPieceSelectorMovement(fixedDeltaTime);
+        ApplySelectorRotation(fixedDeltaTime);
 
         HandleJump(fixedDeltaTime);
         ApplyMovement(fixedDeltaTime);
@@ -67,6 +78,11 @@ PlayerController _playerController;
         Vector3 localPosition = _pieceSelector.transform.localPosition;
         localPosition += InputPieceDirection * _pieceConstantVelocity * fixedDeltaTime;
         _pieceSelector.transform.localPosition = Vector3.ClampMagnitude(localPosition, _pieceSelectorRadius);
+    }
+
+    void ApplySelectorRotation(float fixedDeltaTime)
+    {
+        _pieceSelector.transform.Rotate(-Vector3.forward * PieceRotationDirection * _selectorRotationForce * fixedDeltaTime, Space.Self);
     }
 
     void HandleCollision()
@@ -152,15 +168,15 @@ PlayerController _playerController;
         if (_pieceSelector.CurrentPiece != null)
         {
             _attachedPiece = _pieceSelector.CurrentPiece;
+            _pieceSelector.transform.position = _attachedPiece.transform.position;
             _attachedJoint = _attachedPiece.gameObject.AddComponent<RelativeJoint2D>();
             _attachedJoint.connectedBody = _pieceSelector.GetComponent<Rigidbody2D>();
             _attachedJoint.autoConfigureOffset = false;
             _attachedJoint.correctionScale = 0.1f;
-            //_attachedJoint.linearOffset = Vector2.zero;
+            _attachedJoint.linearOffset = Vector2.zero;
             _attachedJoint.breakForce = 100.0f * _attachedPiece.GetComponent<Rigidbody2D>()?.mass ?? 1.0f;
         }
     }
-
     #endregion
 
     #region Collision Detection

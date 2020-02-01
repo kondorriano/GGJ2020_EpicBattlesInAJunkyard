@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour
 
     public void RotatePieceEvent(InputAction.CallbackContext context)
     {
-        Debug.Log("Trigger " + context.ReadValue<float>());
+        _humanHandler.PieceRotationDirection = context.ReadValue<float>();
     }
     #endregion
 
