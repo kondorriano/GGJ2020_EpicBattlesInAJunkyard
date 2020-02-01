@@ -4,14 +4,24 @@ using UnityEngine;
 
 public class WheelPiece : Piece
 {
-    public float turnPower = 30;
+    public float baseTurnPower = 50;
 
     public override void ApplyAction(float actionValue)
     {
-        if (isAttached) rb.AddTorque(-actionValue * turnPower);
+        
     }
 
-    public override void AttachToRB(Rigidbody2D attachedTo)
+    void LateUpdate()
+    {
+        //Testing solo
+        if (isAttached)
+        {
+            float actionValue = Input.GetAxis("Horizontal");
+            if (isAttached) rb.AddTorque(-actionValue * baseTurnPower);
+        }
+    }
+
+    public override void AttachToRB(Rigidbody2D attachedTo, PlayerController pc = null)
     {
         if (!isAttached)
         {
@@ -24,6 +34,8 @@ public class WheelPiece : Piece
                 DistanceJoint2D dj2d2 = gameObject.AddComponent<DistanceJoint2D>();
                 dj2d1.connectedBody = attachedTo;
                 dj2d2.connectedBody = attachedTo;
+                dj2d1.breakForce = breakForce;
+                dj2d2.breakForce = breakForce;
 
                 Vector2 dist = transform.position - attachedTo.transform.position;
                 Vector2 offset = new Vector2(dist.y, -dist.x);
@@ -32,9 +44,8 @@ public class WheelPiece : Piece
                 dj2d2.connectedAnchor -= offset;
                 activeJoints.Add(dj2d1);
                 activeJoints.Add(dj2d2);
+                isAttached = true;
             }
-
-            isAttached = true;
         }
     }
 }
