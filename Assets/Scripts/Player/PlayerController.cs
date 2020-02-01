@@ -8,11 +8,25 @@ public class PlayerController : MonoBehaviour
     #region Human Data
     [Header("Human Data")]
     [SerializeField] Rigidbody2D _humanRigidbody = null;
+
     [SerializeField] float _constantVelocity = 10;
+
     [SerializeField] float _jumpForce = 4;
+    [SerializeField] float _jumpMaxTime = .15f;
+    [SerializeField] float _jumpMinTime = .25f;
+
+    [Header("Piece Selector Data")]
+    [SerializeField] Transform _pieceSelector = null;
+    [SerializeField] float _pieceConstantVelocity = 10;
+    [SerializeField] float _pieceSelectorRadius = 4;
+
+
+    private float _jumpTime;
+    private float _jumpCounter;
+    bool _jumping = false;
 
     Vector2 _inputDirection;
-    Vector2 _inputPieceDirection;
+    Vector3 _inputPieceDirection;
     #endregion
 
     #region Vehicle Data
@@ -57,18 +71,33 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        FixedTick(Time.fixedDeltaTime);
+        if(OutsideVehicle) FixedHumanTick(Time.fixedDeltaTime);
     }
 
-    void FixedTick(float fixedDeltaTime)
+    void FixedHumanTick(float fixedDeltaTime)
     {
+        ApplyPieceSelectorMovement(fixedDeltaTime);
+
+        HandleJump(fixedDeltaTime);
         ApplyHumanMovement(fixedDeltaTime);
+        //ON AIR
+        if(_jumping)
+        {
+            ApplyHumanJump();
+        }
     }
 
     #region Human Actions
+    void ApplyPieceSelectorMovement(float fixedDeltaTime)
+    {
+        Vector3 localPosition = _pieceSelector.transform.localPosition;
+        localPosition += _inputPieceDirection * _pieceConstantVelocity * fixedDeltaTime;
+        _pieceSelector.transform.localPosition = Vector3.ClampMagnitude(localPosition, _pieceSelectorRadius);
+    }
+
     void ApplyHumanMovement(float fixedDeltaTime)
     {
-        if (_inputDirection.x == 0)
+        if (_inputDirection.x <= .1f)
         {
             Vector2 velocity = _humanRigidbody.velocity;
             velocity.x = 0;//Mathf.Lerp(velocity.x, 0, .7f);
@@ -82,9 +111,25 @@ public class PlayerController : MonoBehaviour
             _humanRigidbody.velocity = velocity;
         }
     }
+    void HandleJump(float fixedDeltaTime)
+    {
+        if (!_jumping) return;
+        _jumpCounter += fixedDeltaTime;
+        _jumping = (_jumpCounter < _jumpTime);
+    }
     void ApplyHumanJump()
     {
-        _humanRigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+        Vector2 velocity = _humanRigidbody.velocity;
+        velocity.y = _jumpForce ;
+        _humanRigidbody.velocity = velocity;
+    }
+
+    void StartJump()
+    {
+        ApplyHumanJump();
+        _jumping = true;
+        _jumpTime = _jumpMaxTime;
+        _jumpCounter = 0;
     }
     #endregion
 
@@ -111,14 +156,23 @@ public class PlayerController : MonoBehaviour
     {
         if (context.started)
         {
-            Debug.Log("JAMPU");
-            ApplyHumanJump();
-        }        
+            StartJump();
+        }
+        else if(context.canceled)
+        {
+            if (_jumping) _jumpTime = _jumpMinTime;
+        }
     }
+
 
     public void RotatePieceEvent(InputAction.CallbackContext context)
     {
         Debug.Log("Trigger " + context.ReadValue<float>());
     }
     #endregion
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(_humanRigidbody.transform.position, _pieceSelectorRadius);
+    }
 }

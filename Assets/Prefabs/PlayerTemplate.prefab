@@ -1,5 +1,84 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &605670960
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 605670961}
+  - component: {fileID: 605670963}
+  - component: {fileID: 605670962}
+  m_Layer: 0
+  m_Name: PieceSelector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &605670961
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605670960}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.65, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_Children: []
+  m_Father: {fileID: 451437094121796436}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &605670963
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605670960}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &605670962
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605670960}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &451437093616966049
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,7 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 451437093616966048}
   - component: {fileID: 451437093616966052}
-  - component: {fileID: 5958588986530298978}
+  - component: {fileID: 62699113519426606}
   m_Layer: 0
   m_Name: PlayerTemplate
   m_TagString: Untagged
@@ -48,7 +127,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _humanRigidbody: {fileID: 451437094121796439}
   _constantVelocity: 10
---- !u!114 &5958588986530298978
+  _jumpForce: 4
+  _jumpMaxTime: 0.35
+  _jumpMinTime: 0.15
+  _pieceSelector: {fileID: 605670961}
+  _pieceConstantVelocity: 10
+  _pieceSelectorRadius: 4
+--- !u!114 &62699113519426606
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,7 +173,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: b62cf82d-6b67-47c0-bd10-0f2590f66a46
-    m_ActionName: Player/MovePlayer[/XInputControllerWindows/leftStick]
+    m_ActionName: Player/MovePlayer[/XInputControllerWindows/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 451437093616966052}
@@ -103,7 +188,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: ed50b856-24a1-4eca-b0c1-392309cce3ef
-    m_ActionName: Player/MovePiece[/XInputControllerWindows/rightStick]
+    m_ActionName: Player/MovePiece[/XInputControllerWindows/rightStick,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 451437093616966052}
@@ -118,7 +203,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: a0320685-a73b-4f86-9c72-faed104912a7
-    m_ActionName: Player/Interact[/XInputControllerWindows/buttonWest]
+    m_ActionName: Player/Interact[/XInputControllerWindows/buttonWest,/Keyboard/f]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 451437093616966052}
@@ -133,7 +218,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 93be129d-5804-48d0-afd1-fcb62f39af2f
-    m_ActionName: Player/Jump[/XInputControllerWindows/buttonSouth]
+    m_ActionName: Player/Jump[/XInputControllerWindows/buttonSouth,/Keyboard/space]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 451437093616966052}
@@ -148,7 +233,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: ddf33c02-dee7-4d4b-bc0f-30843e42098d
-    m_ActionName: Player/RotatePiece[/XInputControllerWindows/leftTrigger,/XInputControllerWindows/rightTrigger]
+    m_ActionName: Player/RotatePiece[/XInputControllerWindows/leftTrigger,/XInputControllerWindows/rightTrigger,/Keyboard/q,/Keyboard/e]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: f7d99166-3fcd-4d26-b5ec-dd58575608ca
@@ -157,7 +242,7 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 3c152d57-6660-468d-9d03-4543b91ae4f3
     m_ActionName: UI/New action
-  m_NeverAutoSwitchControlSchemes: 1
+  m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
@@ -192,7 +277,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 605670961}
   m_Father: {fileID: 451437093616966048}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
