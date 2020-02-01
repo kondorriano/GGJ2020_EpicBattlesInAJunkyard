@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StructuralPiece : Piece
+public class BatteryPiece : Piece
 {
     // Start is called before the first frame update
+    public float power = 1;
+    private PlayerController current_pc;
 
-    public override void AttachToRB(Rigidbody2D attachedTo, PlayerController pc = null)
+    public override void AttachToRB(Rigidbody2D attachedTo, PlayerController pc)
     {
         if (!isAttached)
         {
@@ -19,8 +21,18 @@ public class StructuralPiece : Piece
                 fj2d.breakForce = breakForce;
                 fj2d.correctionScale = 0.25f;
                 activeJoints.Add(fj2d);
+                current_pc = pc;
                 isAttached = true;
+
+                //if (_pc != null) current_pc.addPower(power);
             }
         }
+    }
+
+    public override void Unattach()
+    {
+        base.Unattach();
+        //if (_pc != null) current_pc.addPower(-power);
+        //current_pc = null;
     }
 }
