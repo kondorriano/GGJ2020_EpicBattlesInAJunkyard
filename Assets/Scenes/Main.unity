@@ -724,6 +724,7 @@ MonoBehaviour:
       type: 3}
     freq: 50
   InitialJunkCount: 500
+  FastSpawn: 0
 --- !u!1 &1670151384
 GameObject:
   m_ObjectHideFlags: 0

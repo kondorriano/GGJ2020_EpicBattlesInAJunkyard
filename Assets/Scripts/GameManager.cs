@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
 
     public Junk[] JunkPrefabs;
     public int InitialJunkCount = 100;
+    public bool FastSpawn = false;
+
     List<GameObject> junkList = new List<GameObject>();
 
     PlayerController[] players;
@@ -76,13 +78,18 @@ public class GameManager : MonoBehaviour
                 float pos = (float) (Math.Round(UnityEngine.Random.Range(0.0f, 1.0f)) * 2.0f - 1.0f) * 75.0f;
                 junk.transform.position = new Vector3(pos, 1.0f, 0.0f);
                 junk.transform.rotation *= Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 2 * Mathf.PI));
-                yield return null;
+
+                if (!FastSpawn || i % 10 == 0)
+                    yield return null;
             }
 
-            //// WAIT 5 SECS
-            float time = Time.time;
-            while ((Time.time - time) < 5)
-                yield return null;
+            // WAIT 5 SECS
+            if (!FastSpawn)
+            {
+                float time = Time.time;
+                while ((Time.time - time) < 5)
+                    yield return null;
+            }
 
             // CREATE PLAYERS
             players = new PlayerController[PlayerCount];
