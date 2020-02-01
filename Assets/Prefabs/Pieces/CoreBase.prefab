@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1295685182460606562}
   - component: {fileID: 1295685182460606563}
   - component: {fileID: 1295685182460606560}
-  - component: {fileID: 1295685182460606567}
+  - component: {fileID: 6796272486530889613}
   m_Layer: 0
   m_Name: CoreBase
   m_TagString: Untagged
@@ -121,7 +121,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 20
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -130,7 +130,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1295685182460606567
+--- !u!114 &6796272486530889613
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,12 +139,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1295685182460606573}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48d2c159ec2b7b240850ba25c0727850, type: 3}
+  m_Script: {fileID: 11500000, guid: 6dfcecd156cc3b84e9ac682d87230865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attachOnAwake: {fileID: 0}
   piecesAttachedToMe: []
   breakForce: 750
+  baseRotation: 75
 --- !u!1 &1295685183994525167
 GameObject:
   m_ObjectHideFlags: 0
