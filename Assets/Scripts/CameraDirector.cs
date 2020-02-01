@@ -35,7 +35,15 @@ public class CameraDirector : CameraManager
             smoothPos[i] = follow[i].ToFollow.position;
         }
 
-        orthographicSize = CameraTemplate.orthographicSize;
+        if (CameraTemplate.orthographic)
+            orthographicSize = CameraTemplate.orthographicSize;
+        else
+        {
+            double dst = Math.Abs(CameraTemplate.transform.position.z);
+            double tan = Math.Tan(CameraTemplate.fieldOfView);
+            double size = (dst * tan) / CameraTemplate.aspect;
+            orthographicSize = (float) (size * 0.5);
+        }
     }
 
     const float FollowFactor = 0.8f;
