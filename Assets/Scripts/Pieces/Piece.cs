@@ -28,7 +28,7 @@ public class Piece : MonoBehaviour
         Unattach();
     }
 
-    public void Unattach()
+    public virtual void Unattach()
     {
         foreach (Joint2D j in activeJoints)
         {

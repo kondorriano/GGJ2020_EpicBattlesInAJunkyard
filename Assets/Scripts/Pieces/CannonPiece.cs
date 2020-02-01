@@ -25,13 +25,12 @@ public class CannonPiece : Piece
     /*
     public override void ApplyAction(float actionValue)
     {
-        if (isAttached)
+        if (isAttached && CannonBall != null)
         {
-            rb.AddForce(actionValue * transform.up * basePropellerPower);
-            if (Rotator != null)
-            {
-                Rotator.Rotate(transform.up, actionValue * RotatorSpeed);
-            }
+            GameObject cb = Instantiate(CannonBall, transform.position + transform.up, transform.rotation);
+            Rigidbody2D crb = cb.GetComponent<Rigidbody2D>();
+            crb.velocity = transform.up * actionValue * baseCannonBallSpeed;
+            rb.AddForce(-transform.up * baseImpulseShot * actionValue);
         }
     }
     */
@@ -44,11 +43,11 @@ public class CannonPiece : Piece
             if (p == null) p = attachedTo.GetComponentInParent<Piece>();
             if (p != null)
             {
-                FixedJoint2D rj2d = gameObject.AddComponent<FixedJoint2D>();
-                rj2d.connectedBody = attachedTo;
-                rj2d.breakForce = breakForce;
+                FixedJoint2D fj2d = gameObject.AddComponent<FixedJoint2D>();
+                fj2d.connectedBody = attachedTo;
+                fj2d.breakForce = breakForce;
                 //rj2d.correctionScale = 0f;
-                activeJoints.Add(rj2d);
+                activeJoints.Add(fj2d);
                 isAttached = true;
             }
         }

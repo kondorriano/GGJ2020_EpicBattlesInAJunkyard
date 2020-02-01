@@ -44,11 +44,11 @@ public class PropellerPiece : Piece
             if (p == null) p = attachedTo.GetComponentInParent<Piece>();
             if (p != null)
             {
-                FixedJoint2D rj2d = gameObject.AddComponent<FixedJoint2D>();
-                rj2d.connectedBody = attachedTo;
-                rj2d.breakForce = breakForce;
+                FixedJoint2D fj2d = gameObject.AddComponent<FixedJoint2D>();
+                fj2d.connectedBody = attachedTo;
+                fj2d.breakForce = breakForce;
                 //rj2d.correctionScale = 0f;
-                activeJoints.Add(rj2d);
+                activeJoints.Add(fj2d);
                 isAttached = true;
             }
         }
