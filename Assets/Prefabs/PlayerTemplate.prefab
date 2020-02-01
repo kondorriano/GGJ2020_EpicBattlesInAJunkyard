@@ -542,11 +542,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vehicle
       objectReference: {fileID: 0}
-    - target: {fileID: 2693562046785075519, guid: 9656209d2c8cb8e4795b037273cb0917,
-        type: 3}
-      propertyPath: _vehicleCore
-      value: 
-      objectReference: {fileID: 24292483254469871}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9656209d2c8cb8e4795b037273cb0917, type: 3}
 --- !u!4 &5763564073584839438 stripped
@@ -555,18 +550,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6775516329126884194}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &24292483254469871 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6796272486530889613, guid: 9656209d2c8cb8e4795b037273cb0917,
-    type: 3}
-  m_PrefabInstance: {fileID: 6775516329126884194}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dfcecd156cc3b84e9ac682d87230865, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8891808098942863965 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2693562046785075519, guid: 9656209d2c8cb8e4795b037273cb0917,

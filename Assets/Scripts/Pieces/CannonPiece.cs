@@ -47,6 +47,8 @@ public class CannonPiece : Piece
                 //rj2d.correctionScale = 0f;
                 activeJoints.Add(fj2d);
                 isAttached = true;
+                p.piecesAttachedToMe.Add(this);
+                parentPiece = p;
             }
         }
     }

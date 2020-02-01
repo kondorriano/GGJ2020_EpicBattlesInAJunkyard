@@ -8,6 +8,7 @@ public class Piece : MonoBehaviour
     protected Rigidbody2D rb;
     //public Rigidbody2D attachOnSpace;
     public Rigidbody2D attachOnAwake;
+    protected Piece parentPiece;
     protected List<Joint2D> activeJoints;
     [HideInInspector]
     public List<Piece> piecesAttachedToMe;
@@ -31,6 +32,11 @@ public class Piece : MonoBehaviour
     public virtual void Unattach()
     {
         gameObject.layer = LayerMask.NameToLayer("Environment");
+        if (parentPiece != null && parentPiece.piecesAttachedToMe.Contains(this))
+        {
+            parentPiece.piecesAttachedToMe.Remove(this);
+            parentPiece = null;
+        }
         foreach (Joint2D j in activeJoints)
         {
             Destroy(j);

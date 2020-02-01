@@ -248,7 +248,7 @@ PlayerController _playerController;
             _attachedJoint = null;
         }
 
-        if (_pieceSelector.CurrentPiece != null)
+        if (_pieceSelector.CurrentPiece != null && !(_pieceSelector.CurrentPiece is BasePiece))
         {
             _attachedPiece = _pieceSelector.CurrentPiece;
             _attachedPiece.Unattach();

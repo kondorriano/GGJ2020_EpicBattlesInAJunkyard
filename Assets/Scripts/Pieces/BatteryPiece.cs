@@ -23,6 +23,8 @@ public class BatteryPiece : Piece
                 activeJoints.Add(fj2d);
                 current_pc = pc;
                 isAttached = true;
+                p.piecesAttachedToMe.Add(this);
+                parentPiece = p;
 
                 if (current_pc != null) current_pc.AddPower(power);
             }

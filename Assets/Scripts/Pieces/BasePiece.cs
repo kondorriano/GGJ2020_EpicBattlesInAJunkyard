@@ -10,7 +10,7 @@ public class BasePiece : Piece
     {
         if (key == ActionKey.AxisH1)
         {
-            if (isAttached) rb.AddTorque(-actionValue * baseRotation);
+            rb.AddTorque(-actionValue * baseRotation);
         }
     }
 

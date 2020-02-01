@@ -29,7 +29,7 @@ public class PropellerPiece : Piece
             rb.AddForce(actionValue * transform.up * basePropellerPower);
             if (Rotator != null)
             {
-                Rotator.Rotate(transform.up, actionValue * RotatorSpeed);
+                Rotator.Rotate(Vector3.up, actionValue * RotatorSpeed);
             }
         }
     }
@@ -47,6 +47,8 @@ public class PropellerPiece : Piece
                 fj2d.breakForce = breakForce;
                 //rj2d.correctionScale = 0f;
                 activeJoints.Add(fj2d);
+                p.piecesAttachedToMe.Add(this);
+                parentPiece = p;
                 isAttached = true;
             }
         }
