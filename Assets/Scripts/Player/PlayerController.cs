@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
 
     void ApplyHumanMovement(float fixedDeltaTime)
     {
-        if (_inputDirection.x <= .1f)
+        if (Mathf.Abs(_inputDirection.x) <= .1f)
         {
             Vector2 velocity = _humanRigidbody.velocity;
             velocity.x = 0;//Mathf.Lerp(velocity.x, 0, .7f);

@@ -132,7 +132,7 @@ MonoBehaviour:
   _jumpMinTime: 0.15
   _pieceSelector: {fileID: 605670961}
   _pieceConstantVelocity: 10
-  _pieceSelectorRadius: 4
+  _pieceSelectorRadius: 3
 --- !u!114 &62699113519426606
 MonoBehaviour:
   m_ObjectHideFlags: 0
