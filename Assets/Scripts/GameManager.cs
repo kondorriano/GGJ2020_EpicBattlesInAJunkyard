@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 
     public CanvasGroup TitleScreen;
     public CanvasGroup GameUI;
+    public CanvasGroup Announcements;
 
     public int PlayerCount = 2;
     public Material[] PlayerMaterials;
@@ -45,8 +46,9 @@ public class GameManager : MonoBehaviour
     IEnumerator Flow()
     {
         TitleScreen.alpha = 0.0f;
+        Announcements.alpha = 0.0f;
 
-        while(true)
+        while (true)
         {
             GameUI.alpha = 0.0f;
 
@@ -225,7 +227,7 @@ public class GameManager : MonoBehaviour
                         bool left = (i % 2) == 0;
                         bool dead = players[i].health <= 0;
 
-                        cameraManager.GameUIs[i].HealthMeter.text = string.Format("Healt: {0}%", (int) Math.Round(players[i].health));
+                        cameraManager.GameUIs[i].HealthMeter.text = string.Format("Health: {0}%", (int) Math.Round(players[i].health));
 
                         if (left)
                             teamLeftAlive += dead ? 0 : 1;
@@ -251,14 +253,52 @@ public class GameManager : MonoBehaviour
                     yield return null;
                 }
 
-                if (leftWon)
+                UnityEngine.UI.Text annText = Announcements.GetComponent<UnityEngine.UI.Text>();
+                if(annText != null)
                 {
-
+                    if (leftWon)
+                    {
+                        annText.text = "Team left\n WINS";
+                    }
+                    else
+                    {
+                        annText.text = "Team right\n WINS";
+                    }
                 }
-                else
+
+                // FADE IN
+                if (!FastSpawn)
                 {
-
+                    float time = Time.time;
+                    while ((Time.time - time) < 1)
+                    {
+                        Announcements.alpha = 1.0f - (Time.time - time);
+                        yield return null;
+                    }
                 }
+
+                Announcements.alpha = 1.0f;
+
+                {
+                    float time = Time.time;
+                    while ((Time.time - time) < 5)
+                    {
+                        yield return null;
+                    }
+                }
+
+                // FADE OUT
+                if (!FastSpawn)
+                {
+                    float time = Time.time;
+                    while ((Time.time - time) < 1)
+                    {
+                        Announcements.alpha = Time.time - time;
+                        yield return null;
+                    }
+                }
+
+                Announcements.alpha = 0.0f;
             }
         }
     }
