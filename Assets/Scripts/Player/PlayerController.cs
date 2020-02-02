@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
         get
         {
             yield return _humanHandler?.GetComponent<MeshRenderer>();
-            yield return _vehicleHandler?.GetComponent<MeshRenderer>();
+            yield return _vehicleHandler?.transform.GetChild(0).GetComponent<MeshRenderer>();
         }
     }
 
