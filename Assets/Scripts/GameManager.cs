@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public AudioClip IngameClip;
 
     public CanvasGroup TitleScreen;
+    public CanvasGroup GameUI;
 
     public int PlayerCount = 2;
     public Material[] PlayerMaterials;
@@ -44,6 +45,8 @@ public class GameManager : MonoBehaviour
 
         while(true)
         {
+            GameUI.alpha = 0.0f;
+
             MusicSource.clip = IntroClip;
             MusicSource.Play();
 
@@ -83,6 +86,7 @@ public class GameManager : MonoBehaviour
 
             // Hide title screen
             TitleScreen.alpha = 0.0f;
+            GameUI.alpha = 1.0f;
 
             while (true)
             {
@@ -157,6 +161,13 @@ public class GameManager : MonoBehaviour
                 if (PlayerTemplate == null)
                     Debug.Break();
 
+                if (GameUI == null)
+                    Debug.Break();
+
+                CanvasGroup PlayerUITemplate = GameUI.transform.Find("PlayerUITemplate")?.GetComponent<CanvasGroup>();
+                if (PlayerUITemplate == null)
+                    Debug.Break();
+
                 for (int i = 0; i < PlayerCount; i++)
                 {
                     // Create player
@@ -179,14 +190,21 @@ public class GameManager : MonoBehaviour
                     var camDirectorObj = new GameObject();
                     camDirectorObj.name = "CameraDirector";
                     cameraManager = camDirectorObj.AddComponent<CameraDirector>();
-                    cameraManager.Setup(CameraTemplate, players);
+                    cameraManager.Setup(CameraTemplate, players, GameUI, PlayerUITemplate);
                 }
                 else
                 {
                     var camDirectorObj = new GameObject();
                     camDirectorObj.name = "CameraSplit";
                     cameraManager = camDirectorObj.AddComponent<CameraSplit>();
-                    cameraManager.Setup(CameraTemplate, players);
+                    cameraManager.Setup(CameraTemplate, players, GameUI, PlayerUITemplate);
+                }
+
+                for (int i = 0; i < PlayerCount; i++)
+                {
+                    var healthMeter = cameraManager.GameUIs[i].transform.Find("HealthMeter")?.GetComponent<UnityEngine.UI.Text>();
+                    if (healthMeter != null)
+                        healthMeter.color = Color.Lerp(Color.black, PlayerMaterials[i].color, 0.8f);
                 }
 
                 while (!ResetGame && !BackToTitle)
