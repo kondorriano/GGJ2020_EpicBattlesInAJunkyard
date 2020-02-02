@@ -175,6 +175,23 @@ public class PlayerController : MonoBehaviour
             _vehicleHandler.ApplyInputAction(ActionKey.B, _power);
         }
     }
+
+    public float DistanceHumanVehicle()
+    {
+        Vector2 vpos = _vehicleHandler.transform.position;
+        Vector2 hpos = _humanHandler.transform.position;
+        return (vpos - hpos).magnitude;
+    }
+
+    public void LowerVehicle()
+    {
+        _vehicleHandler.LowerVehicle();
+    }
+
+    public void RiseVehicle()
+    {
+        _vehicleHandler.RiseVehicle();
+    }
     #endregion
 
 

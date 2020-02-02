@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -61,5 +62,15 @@ public class VehicleHandler : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position + _exitCarOffset, 1);
+    }
+
+    internal void LowerVehicle()
+    {
+        if (_vehicleCore != null) _vehicleCore.Unrise();
+    }
+
+    internal void RiseVehicle()
+    {
+        if (_vehicleCore != null) _vehicleCore.StartRise();
     }
 }
