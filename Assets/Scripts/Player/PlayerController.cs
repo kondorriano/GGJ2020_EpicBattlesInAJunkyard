@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
 
     #region General
     public int _playerID = 0;
+    public float health = 100f;
     bool _outsideVehicle = true;
     bool OutsideVehicle
     {
@@ -54,6 +55,11 @@ public class PlayerController : MonoBehaviour
             else
                 return _vehicleHandler?.transform;
         }
+    }
+
+    public void HealthLoss(float loss)
+    {
+        health -= loss;
     }
 
     public IEnumerable<MeshRenderer> ColorRenderers
