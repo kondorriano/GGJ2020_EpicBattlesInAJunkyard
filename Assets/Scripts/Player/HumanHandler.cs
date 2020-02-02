@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -102,9 +103,12 @@ PlayerController _playerController;
     {
         if (!HasPieceAttached())
         {
+            _playerController.LowerVehicle();
             _attachedOverlapping = null;
             return;
         }
+
+        if (_playerController.DistanceHumanVehicle() < 10) _playerController.RiseVehicle();
 
         Collider2D collider = _attachedPiece.GetComponent<Collider2D>();
         if (collider == null) return;
@@ -209,7 +213,13 @@ PlayerController _playerController;
         if (_attachedPiece != null)
         {
             RelativeJoint2D attachedJoint = _attachedPiece.GetComponent<RelativeJoint2D>();
-            return (_attachedJoint == attachedJoint);
+            if (_attachedJoint != attachedJoint)
+            {
+                _attachedJoint = null;
+                _attachedPiece = null;
+            }
+
+            return (_attachedJoint != null);
         }
 
         return false;
@@ -310,6 +320,7 @@ PlayerController _playerController;
         normalizedCollision = accumCollision / accumCollisionCount;
     }
     #endregion
+
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, _pieceSelectorRadius);

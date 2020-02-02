@@ -2470,6 +2470,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 6796272486530889613, guid: 9656209d2c8cb8e4795b037273cb0917,
+        type: 3}
+      propertyPath: desiredFloatElevation
+      value: 0.25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9656209d2c8cb8e4795b037273cb0917, type: 3}
 --- !u!1001 &3551549661229238994
