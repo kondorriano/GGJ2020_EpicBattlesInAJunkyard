@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region General
-    int _playerID = 0;
+    public int _playerID = 0;
     bool _outsideVehicle = true;
     bool OutsideVehicle
     {

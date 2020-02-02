@@ -17,11 +17,14 @@ public class CameraDirector : CameraManager
         cameras = null;
         follow = null;
         smoothPos = null;
+
+        base.Destroy();
     }
 
-    public override void Setup(Camera CameraTemplate, params PlayerController[] ToFollow)
+    public override void Setup(Camera CameraTemplate, PlayerController[] ToFollow, CanvasGroup UI, CanvasGroup PlayerUITemplate)
     {
         Destroy();
+        base.Setup(CameraTemplate, ToFollow, UI, PlayerUITemplate);
 
         follow = ToFollow;
         cameras = new Camera[follow.Length];
@@ -68,39 +71,52 @@ public class CameraDirector : CameraManager
 
         float step = (1.0f / follow.Length);
         float lastX = float.NegativeInfinity;
+        int skipUntil = -1;
         for (int i = 0; i < cameras.Length; i++)
         {
+            bool skip = i <= skipUntil; 
             Camera currCamera = cameras[i];
             var rect = currCamera.rect;
             rect.x = i * step;
             rect.width = step;
             currCamera.rect = rect;
 
+            RectTransform currUIRect = GameUIs[follow[i]._playerID].GetComponent<RectTransform>();
+            var min = currUIRect.anchorMin;
+            var max = currUIRect.anchorMax;
+            min.x = rect.x;
+            max.x = rect.x + rect.width;
+            currUIRect.anchorMin = min;
+            currUIRect.anchorMax = max;
+
             float radius = (orthographicSize * currCamera.aspect) * 2;
 
             int posAccum = 1;
             var currPos = smoothPos[i];
             var position = currCamera.transform.position;
-            lastX = position.x = currPos.x;
 
-            for (int j = i + 1; j < cameras.Length; j++)
+            if (!skip)
             {
-                var nextPos = smoothPos[j];
-                if (lastX + radius > nextPos.x)
+                lastX = position.x = currPos.x;
+                for (int j = i + 1; j < cameras.Length; j++)
                 {
-                    posAccum++;
-                    rect.width = step * posAccum;
-                    position.x += nextPos.x;
-                    cameras[j].gameObject.SetActive(false);
-                    lastX = nextPos.x;
-                    i = j;
+                    var nextPos = smoothPos[j];
+                    if (lastX + radius > nextPos.x)
+                    {
+                        posAccum++;
+                        rect.width = step * posAccum;
+                        position.x += nextPos.x;
+                        cameras[j].gameObject.SetActive(false);
+                        lastX = nextPos.x;
+                        skipUntil = j;
+                    }
                 }
             }
 
             position.x = position.x / posAccum;
             currCamera.transform.position = position;
             currCamera.rect = rect;
-            currCamera.gameObject.SetActive(true);
+            currCamera.gameObject.SetActive(!skip);
             currCamera.orthographicSize = orthographicSize;
         }
     }

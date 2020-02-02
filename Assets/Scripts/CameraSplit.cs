@@ -2,8 +2,32 @@
 
 public abstract class CameraManager : MonoBehaviour
 {
-    public virtual void Destroy() {}
-    public virtual void Setup(Camera CameraTemplate, params PlayerController[] ToFollow) {}
+    public CanvasGroup[] GameUIs = null;
+
+    public virtual void Destroy()
+    {
+        if (GameUIs != null)
+        {
+            for (int i = 0; i < GameUIs.Length; i++)
+            {
+                Destroy(GameUIs[i].gameObject);
+            }
+
+            GameUIs = null;
+        }
+    }
+
+    public virtual void Setup(Camera CameraTemplate, PlayerController[] ToFollow, CanvasGroup UI, CanvasGroup PlayerUITemplate)
+    {
+        GameUIs = new CanvasGroup[ToFollow.Length];
+        for (int i = 0; i < GameUIs.Length; i++)
+        {
+            GameUIs[i] = Instantiate(PlayerUITemplate);
+            GameUIs[i].gameObject.SetActive(true);
+            GameUIs[i].gameObject.name = string.Format("PlayerUI{0}", i + 1);
+            GameUIs[i].transform.SetParent(UI.transform, false);
+        }
+    }
 }
 
 public class CameraSplit : CameraManager
@@ -20,11 +44,15 @@ public class CameraSplit : CameraManager
 
         cameras = null;
         follow = null;
+
+        base.Destroy();
     }
 
-    public override void Setup(Camera CameraTemplate, params PlayerController[] ToFollow)
+    public override void Setup(Camera CameraTemplate, PlayerController[] ToFollow, CanvasGroup UI, CanvasGroup PlayerUITemplate)
     {
         Destroy();
+        base.Setup(CameraTemplate, ToFollow, UI, PlayerUITemplate);
+
         follow = ToFollow;
         cameras = new Camera[follow.Length];
         for (int i = 0; i < cameras.Length; i++)
