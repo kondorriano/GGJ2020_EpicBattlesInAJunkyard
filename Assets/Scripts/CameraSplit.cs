@@ -53,7 +53,10 @@ public class CameraSplit : CameraManager
         Destroy();
         base.Setup(CameraTemplate, ToFollow, UI, PlayerUITemplate);
 
-        follow = ToFollow;
+        follow = new PlayerController[ToFollow.Length];
+        for (int i = 0; i < ToFollow.Length; i++)
+            follow[i] = ToFollow[i];
+
         cameras = new Camera[follow.Length];
         for (int i = 0; i < cameras.Length; i++)
         {
