@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 72506193}
   - component: {fileID: 72506195}
   - component: {fileID: 72506194}
+  - component: {fileID: 72506196}
   m_Layer: 5
   m_Name: HealthMeter
   m_TagString: Untagged
@@ -198,6 +199,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 72506192}
   m_CullTransparentMesh: 0
+--- !u!114 &72506196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 72506192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.12941177, g: 0.12941177, b: 0.12941177, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &133111915
 GameObject:
   m_ObjectHideFlags: 0
@@ -900,6 +916,80 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1001 &1196534300
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5073584965359139962, guid: 8c61bc378c1393b4ca2a87e1721b85db,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073584965359139962, guid: 8c61bc378c1393b4ca2a87e1721b85db,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073584965359139962, guid: 8c61bc378c1393b4ca2a87e1721b85db,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073584965359139962, guid: 8c61bc378c1393b4ca2a87e1721b85db,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073584965359139962, guid: 8c61bc378c1393b4ca2a87e1721b85db,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073584965359139962, guid: 8c61bc378c1393b4ca2a87e1721b85db,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073584965359139962, guid: 8c61bc378c1393b4ca2a87e1721b85db,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073584965359139962, guid: 8c61bc378c1393b4ca2a87e1721b85db,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073584965359139962, guid: 8c61bc378c1393b4ca2a87e1721b85db,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073584965359139962, guid: 8c61bc378c1393b4ca2a87e1721b85db,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073584965359139962, guid: 8c61bc378c1393b4ca2a87e1721b85db,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073584965359139963, guid: 8c61bc378c1393b4ca2a87e1721b85db,
+        type: 3}
+      propertyPath: m_Name
+      value: Obtaculos
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073584965449379356, guid: 8c61bc378c1393b4ca2a87e1721b85db,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8c61bc378c1393b4ca2a87e1721b85db, type: 3}
 --- !u!1 &1586175095
 GameObject:
   m_ObjectHideFlags: 0
@@ -1402,6 +1492,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1586175096}
     m_Modifications:
+    - target: {fileID: 24292483254469871, guid: 4d2fb4a0b0201bf4fa2ef74bd72b69d8,
+        type: 3}
+      propertyPath: desiredFloatElevation
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 24292483254469871, guid: 4d2fb4a0b0201bf4fa2ef74bd72b69d8,
+        type: 3}
+      propertyPath: floatJointHeight
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 451437093616966048, guid: 4d2fb4a0b0201bf4fa2ef74bd72b69d8,
         type: 3}
       propertyPath: m_LocalPosition.x
