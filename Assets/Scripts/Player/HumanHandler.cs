@@ -6,7 +6,9 @@ public class HumanHandler : MonoBehaviour
 {
     #region Human Data
     [Header("Human Data")]
-    [SerializeField] float _constantVelocity = 10;
+    [SerializeField] float _acceleration = 20;
+    [SerializeField] float _deceleration = 40;
+    [SerializeField] float _maximumVelocity = 10;
 
     [SerializeField] float _jumpForce = 4;
     [SerializeField] float _jumpMaxTime = .35f;
@@ -17,7 +19,6 @@ public class HumanHandler : MonoBehaviour
     [SerializeField] float _pieceConstantVelocity = 10;
     [SerializeField] float _selectorRotationForce = 135f;
     [SerializeField] float _pieceSelectorRadius = 4;
-
 
     //JUMP
     private float _jumpTime;
@@ -149,14 +150,23 @@ PlayerController _playerController;
         if (Mathf.Abs(InputDirection.x) <= .1f)
         {
             Vector2 velocity = _humanRigidbody.velocity;
-            velocity.x = 0;//Mathf.Lerp(velocity.x, 0, .7f);
+            if(velocity.x > 0)
+            {
+                velocity.x -= _deceleration * fixedDeltaTime;
+                if (velocity.x < 0) velocity.x = 0;
+            }
+            else if (velocity.x < 0)
+            {
+                velocity.x += _deceleration * fixedDeltaTime;
+                if (velocity.x > 0) velocity.x = 0;
+            }
             _humanRigidbody.velocity = velocity;
         }
         else
         {
             Vector2 velocity = _humanRigidbody.velocity;
-            velocity.x += InputDirection.x * _constantVelocity;//_movementAcceleration * Time.fixedDeltaTime;
-            velocity.x = Mathf.Clamp(velocity.x, -_constantVelocity, _constantVelocity);
+            velocity.x += InputDirection.x * _acceleration * fixedDeltaTime;
+            velocity.x = Mathf.Clamp(velocity.x, -_maximumVelocity, _maximumVelocity);
             _humanRigidbody.velocity = velocity;
         }
     }
