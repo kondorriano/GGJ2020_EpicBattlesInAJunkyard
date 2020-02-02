@@ -257,7 +257,7 @@ MonoBehaviour:
   attachOnAwake: {fileID: 0}
   piecesAttachedToMe: []
   breakForce: 2000
-  basePropellerPower: 450
+  basePropellerPower: 150
   Rotator: {fileID: 9168576268654633273}
   RotatorSpeed: 45
 --- !u!1 &9168576269867316492

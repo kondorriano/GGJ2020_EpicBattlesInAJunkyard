@@ -111,8 +111,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 10
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDrag: 0.05
+  m_AngularDrag: 0.35
   m_GravityScale: 1
   m_Material: {fileID: 6200000, guid: 5855718b9367a5142a9f86923cb6bcbe, type: 2}
   m_Interpolate: 0
@@ -134,4 +134,4 @@ MonoBehaviour:
   attachOnAwake: {fileID: 0}
   piecesAttachedToMe: []
   breakForce: 100000
-  baseTurnPower: 100
+  baseTurnPower: 25
