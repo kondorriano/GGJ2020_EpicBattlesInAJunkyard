@@ -27,9 +27,9 @@ public class VehicleHandler : MonoBehaviour
         if (_leftAxisInput.y != 0) ApplyInputAction(ActionKey.AxisV1, _leftAxisInput.y);
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.relativeVelocity.magnitude > 5) _playerController.HealthLoss(collision.relativeVelocity.magnitude*0.3f);
+        if (collision.relativeVelocity.magnitude > 3) _playerController.HealthLoss(collision.relativeVelocity.magnitude*0.2f);
     }
 
     public Vector3 ExitPosition

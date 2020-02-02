@@ -33,14 +33,6 @@ public class HumanHandler : MonoBehaviour
         get { return accumCollisionCount < AIRTHRESHOLD; }
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.other.gameObject.layer != _vehicleLayer && (collision.other.gameObject.layer == LayerMask.NameToLayer("Vehicle1") || collision.other.gameObject.layer == LayerMask.NameToLayer("Vehicle2") || collision.other.gameObject.layer == LayerMask.NameToLayer("Vehicle3") || collision.other.gameObject.layer == LayerMask.NameToLayer("Vehicle4")))
-        {
-            if (collision.relativeVelocity.magnitude > 10) _playerController.HealthLoss(collision.relativeVelocity.magnitude * 5);
-        }
-    }
-
     //MOVEMENT
     public Vector2 InputDirection { get; set; }
     public Vector3 InputPieceDirection { get; set; }
@@ -326,6 +318,12 @@ PlayerController _playerController;
         }
 
         normalizedCollision = accumCollision / accumCollisionCount;
+
+
+        if (collision.collider.gameObject.layer != _vehicleLayer && (collision.collider.gameObject.layer == LayerMask.NameToLayer("Vehicle1") || collision.collider.gameObject.layer == LayerMask.NameToLayer("Vehicle2") || collision.collider.gameObject.layer == LayerMask.NameToLayer("Vehicle3") || collision.collider.gameObject.layer == LayerMask.NameToLayer("Vehicle4")))
+        {
+            if (collision.relativeVelocity.magnitude > 10) _playerController.HealthLoss(collision.relativeVelocity.magnitude * 5);
+        }
     }
     #endregion
 
