@@ -153,7 +153,7 @@ public class GameManager : MonoBehaviour
                 if (!FastSpawn)
                 {
                     float time = Time.time;
-                    while ((Time.time - time) < 5)
+                    while ((Time.time - time) < 2.5f)
                         yield return null;
                 }
 

@@ -279,7 +279,7 @@ PlayerController _playerController;
             _attachedJoint.autoConfigureOffset = false;
             _attachedJoint.correctionScale = 0.1f;
             _attachedJoint.linearOffset = Vector2.zero;
-            _attachedJoint.breakForce = 100.0f * _attachedPiece.GetComponent<Rigidbody2D>()?.mass ?? 1.0f;
+            _attachedJoint.breakForce = 500.0f * _attachedPiece.GetComponent<Rigidbody2D>()?.mass ?? 1.0f;
         }
     }
     #endregion
