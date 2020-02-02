@@ -29,7 +29,7 @@ public class VehicleHandler : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.relativeVelocity.magnitude > 3) _playerController.HealthLoss(collision.relativeVelocity.magnitude*0.2f);
+        if (collision.relativeVelocity.magnitude > 7.5f) _playerController.HealthLoss(collision.relativeVelocity.magnitude*0.5f);
     }
 
     public Vector3 ExitPosition

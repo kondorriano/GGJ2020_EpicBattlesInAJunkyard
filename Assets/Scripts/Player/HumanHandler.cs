@@ -322,7 +322,7 @@ PlayerController _playerController;
 
         if (collision.collider.gameObject.layer != _vehicleLayer && (collision.collider.gameObject.layer == LayerMask.NameToLayer("Vehicle1") || collision.collider.gameObject.layer == LayerMask.NameToLayer("Vehicle2") || collision.collider.gameObject.layer == LayerMask.NameToLayer("Vehicle3") || collision.collider.gameObject.layer == LayerMask.NameToLayer("Vehicle4")))
         {
-            if (collision.relativeVelocity.magnitude > 10) _playerController.HealthLoss(collision.relativeVelocity.magnitude * 5);
+            if (collision.relativeVelocity.magnitude > 15) _playerController.HealthLoss(collision.relativeVelocity.magnitude * 3f);
         }
     }
     #endregion

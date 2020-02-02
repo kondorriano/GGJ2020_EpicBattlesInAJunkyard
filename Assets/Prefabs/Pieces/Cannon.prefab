@@ -133,7 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attachOnAwake: {fileID: 0}
   piecesAttachedToMe: []
-  breakForce: 2000
+  breakForce: 7000
   CannonBall: {fileID: 4713234470228135899, guid: ad7436360de505948b4ea180689b5147,
     type: 3}
   baseImpulseShot: 1000
