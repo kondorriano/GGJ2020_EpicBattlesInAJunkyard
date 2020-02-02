@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
         int pieceLayer = LayerMask.NameToLayer(string.Format("Grabbed{0}", _playerID + 1));
 
         _humanHandler.Init(this, pieceLayer, vehicleLayer);
-        _vehicleHandler.Init(vehicleLayer);
+        _vehicleHandler.Init(this, vehicleLayer);
 
         _playerInput = GetComponent<PlayerInput>();
     }

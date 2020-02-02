@@ -10,6 +10,8 @@ public class VehicleHandler : MonoBehaviour
 
     Vector2 _leftAxisInput = Vector2.zero;
 
+    PlayerController _playerController;
+
     public void SetLeftAxis(Vector2 leftInput)
     {
         _leftAxisInput = leftInput;
@@ -25,6 +27,11 @@ public class VehicleHandler : MonoBehaviour
         if (_leftAxisInput.y != 0) ApplyInputAction(ActionKey.AxisV1, _leftAxisInput.y);
     }
 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.relativeVelocity.magnitude > 3) _playerController.HealthLoss(collision.relativeVelocity.magnitude*0.2f);
+    }
+
     public Vector3 ExitPosition
     {
         get { return transform.position + _exitCarOffset; }
@@ -38,9 +45,10 @@ public class VehicleHandler : MonoBehaviour
             SetLayerRecursive(t.gameObject, layer);
     }
 
-    public void Init(int vehicleLayer)
+    public void Init(PlayerController playerController, int vehicleLayer)
     {
         SetLayerRecursive(gameObject, vehicleLayer);
+        _playerController = playerController;
     }
 
     public void ApplyInputAction(ActionKey action, float poweredInput = 1)

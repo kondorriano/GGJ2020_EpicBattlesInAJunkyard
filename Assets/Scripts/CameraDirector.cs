@@ -21,7 +21,7 @@ public class CameraDirector : CameraManager
         base.Destroy();
     }
 
-    public override void Setup(Camera CameraTemplate, PlayerController[] ToFollow, CanvasGroup UI, CanvasGroup PlayerUITemplate)
+    public override void Setup(Camera CameraTemplate, PlayerController[] ToFollow, CanvasGroup UI, PlayerUIHandler PlayerUITemplate)
     {
         Destroy();
         base.Setup(CameraTemplate, ToFollow, UI, PlayerUITemplate);
