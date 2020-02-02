@@ -1446,6 +1446,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1923685173}
   - component: {fileID: 1923685174}
+  - component: {fileID: 1923685175}
   m_Layer: 5
   m_Name: PlayerUITemplate
   m_TagString: Untagged
@@ -1485,6 +1486,20 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1923685175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923685172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4270b7aa4e63d3b46964e8c6637e7c97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasGroup: {fileID: 1923685174}
+  HealthMeter: {fileID: 72506194}
 --- !u!1001 &451437093313412137
 PrefabInstance:
   m_ObjectHideFlags: 0

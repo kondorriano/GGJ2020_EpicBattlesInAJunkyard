@@ -2,7 +2,7 @@
 
 public abstract class CameraManager : MonoBehaviour
 {
-    public CanvasGroup[] GameUIs = null;
+    public PlayerUIHandler[] GameUIs = null;
 
     public virtual void Destroy()
     {
@@ -17,9 +17,9 @@ public abstract class CameraManager : MonoBehaviour
         }
     }
 
-    public virtual void Setup(Camera CameraTemplate, PlayerController[] ToFollow, CanvasGroup UI, CanvasGroup PlayerUITemplate)
+    public virtual void Setup(Camera CameraTemplate, PlayerController[] ToFollow, CanvasGroup UI, PlayerUIHandler PlayerUITemplate)
     {
-        GameUIs = new CanvasGroup[ToFollow.Length];
+        GameUIs = new PlayerUIHandler[ToFollow.Length];
         for (int i = 0; i < GameUIs.Length; i++)
         {
             GameUIs[i] = Instantiate(PlayerUITemplate);
@@ -48,7 +48,7 @@ public class CameraSplit : CameraManager
         base.Destroy();
     }
 
-    public override void Setup(Camera CameraTemplate, PlayerController[] ToFollow, CanvasGroup UI, CanvasGroup PlayerUITemplate)
+    public override void Setup(Camera CameraTemplate, PlayerController[] ToFollow, CanvasGroup UI, PlayerUIHandler PlayerUITemplate)
     {
         Destroy();
         base.Setup(CameraTemplate, ToFollow, UI, PlayerUITemplate);

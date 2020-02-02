@@ -34,6 +34,9 @@ public class GameManager : MonoBehaviour
     bool BackToTitle = true;
     bool ResetGame = false;
 
+    int TeamLeftScore = 0;
+    int TeamRightScore = 0;
+
     void Start()
     {
         StartCoroutine(Flow());
@@ -87,6 +90,8 @@ public class GameManager : MonoBehaviour
             // Hide title screen
             TitleScreen.alpha = 0.0f;
             GameUI.alpha = 1.0f;
+            TeamLeftScore = 0;
+            TeamRightScore = 0;
 
             while (true)
             {
@@ -164,7 +169,7 @@ public class GameManager : MonoBehaviour
                 if (GameUI == null)
                     Debug.Break();
 
-                CanvasGroup PlayerUITemplate = GameUI.transform.Find("PlayerUITemplate")?.GetComponent<CanvasGroup>();
+                PlayerUIHandler PlayerUITemplate = GameUI.transform.Find("PlayerUITemplate")?.GetComponent<PlayerUIHandler>();
                 if (PlayerUITemplate == null)
                     Debug.Break();
 
@@ -207,8 +212,53 @@ public class GameManager : MonoBehaviour
                         healthMeter.color = Color.Lerp(Color.black, PlayerMaterials[i].color, 0.8f);
                 }
 
-                while (!ResetGame && !BackToTitle)
+                // Check if someone won
+                bool leftWon = false;
+                while (true)
+                {
+                    // Check if 
+                    int teamLeftAlive = 0;
+                    int teamRightAlive = 0;
+
+                    for (int i = 0; i < players.Length; i++)
+                    {
+                        bool left = (i % 2) == 0;
+                        bool dead = players[i].health <= 0;
+
+                        cameraManager.GameUIs[i].HealthMeter.text = string.Format("Healt: {0}%", (int) Math.Round(players[i].health));
+
+                        if (left)
+                            teamLeftAlive += dead ? 0 : 1;
+                        else
+                            teamRightAlive += dead ? 0 : 1;
+                    }
+
+                    if (ResetGame || BackToTitle)
+                        continue;
+
+                    if (teamLeftAlive == 0)
+                    {
+                        leftWon = false;
+                        break;
+                    }
+
+                    if (teamRightAlive == 0)
+                    {
+                        leftWon = true;
+                        break;
+                    }
+
                     yield return null;
+                }
+
+                if (leftWon)
+                {
+
+                }
+                else
+                {
+
+                }
             }
         }
     }
