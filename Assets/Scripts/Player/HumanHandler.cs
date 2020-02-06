@@ -76,32 +76,35 @@ PlayerController _playerController;
 
         HandleJump(fixedDeltaTime);
         ApplyMovement(fixedDeltaTime);
+        
         //ON AIR
         if (_jumping)
         {
             ApplyJump();
         }
 
+        HasPieceAttached();
         HandleGrabbedPiece();
     }
 
     #region Human Actions
     IEnumerable<RaycastHit2D> RaysFromBoundsAndDistance(Bounds bb, float dist)
     {
-        yield return Physics2D.Raycast(bb.center, new Vector2(bb.min.x, bb.min.y), dist, 1 <<_vehicleLayer);
-        yield return Physics2D.Raycast(bb.center, new Vector2(bb.min.x, bb.max.y), dist, 1 << _vehicleLayer);
-        yield return Physics2D.Raycast(bb.center, new Vector2(bb.max.x, bb.max.y), dist, 1 << _vehicleLayer);
-        yield return Physics2D.Raycast(bb.center, new Vector2(bb.max.x, bb.min.y), dist, 1 << _vehicleLayer);
+        Vector2 center = bb.center;
+        yield return Physics2D.Raycast(center, new Vector2(bb.min.x, bb.min.y) - center, dist, 1 << _vehicleLayer);
+        yield return Physics2D.Raycast(center, new Vector2(bb.min.x, bb.max.y) - center, dist, 1 << _vehicleLayer);
+        yield return Physics2D.Raycast(center, new Vector2(bb.max.x, bb.max.y) - center, dist, 1 << _vehicleLayer);
+        yield return Physics2D.Raycast(center, new Vector2(bb.max.x, bb.min.y) - center, dist, 1 << _vehicleLayer);
 
-        yield return Physics2D.Raycast(bb.center, new Vector2(bb.min.x, bb.center.y), bb.extents.x, 1 << _vehicleLayer);
-        yield return Physics2D.Raycast(bb.center, new Vector2(bb.max.x, bb.center.y), bb.extents.x, 1 << _vehicleLayer);
-        yield return Physics2D.Raycast(bb.center, new Vector2(bb.center.x, bb.min.y), bb.extents.y, 1 << _vehicleLayer);
-        yield return Physics2D.Raycast(bb.center, new Vector2(bb.center.x, bb.max.y), bb.extents.y, 1 << _vehicleLayer);
+        yield return Physics2D.Raycast(center, new Vector2(bb.min.x, bb.center.y) - center, bb.extents.x, 1 << _vehicleLayer);
+        yield return Physics2D.Raycast(center, new Vector2(bb.max.x, bb.center.y) - center, bb.extents.x, 1 << _vehicleLayer);
+        yield return Physics2D.Raycast(center, new Vector2(bb.center.x, bb.min.y) - center, bb.extents.y, 1 << _vehicleLayer);
+        yield return Physics2D.Raycast(center, new Vector2(bb.center.x, bb.max.y) - center, bb.extents.y, 1 << _vehicleLayer);
     }
 
     void HandleGrabbedPiece()
     {
-        if (!HasPieceAttached())
+        if (_attachedPiece == null)
         {
             _playerController.LowerVehicle();
             _attachedOverlapping = null;
@@ -327,8 +330,39 @@ PlayerController _playerController;
     }
     #endregion
 
+    private static void GizmoDrawRay(Vector2 origin, Vector2 direction, float distance, int layer)
+    {
+        Gizmos.DrawLine(origin, origin + (direction.normalized * distance));
+    }
+
     private void OnDrawGizmos()
     {
+        if (_attachedPiece != null)
+        {
+            Collider2D collider = _attachedPiece.GetComponent<Collider2D>();
+            if (collider != null)
+            {
+                var bb = collider.bounds;
+                float dist = Vector3.Distance(bb.min, bb.center);
+
+                var restoreColor = Gizmos.color;
+                Gizmos.color = Color.red;
+                Vector2 center = bb.center;
+                GizmoDrawRay(center, new Vector2(bb.min.x, bb.min.y) - center, dist, 1 << _vehicleLayer);
+                GizmoDrawRay(center, new Vector2(bb.min.x, bb.max.y) - center, dist, 1 << _vehicleLayer);
+                GizmoDrawRay(center, new Vector2(bb.max.x, bb.max.y) - center, dist, 1 << _vehicleLayer);
+                GizmoDrawRay(center, new Vector2(bb.max.x, bb.min.y) - center, dist, 1 << _vehicleLayer);
+
+                Gizmos.color = Color.green;
+                GizmoDrawRay(center, new Vector2(bb.min.x, bb.center.y) - center, bb.extents.x, 1 << _vehicleLayer);
+                GizmoDrawRay(center, new Vector2(bb.max.x, bb.center.y) - center, bb.extents.x, 1 << _vehicleLayer);
+                GizmoDrawRay(center, new Vector2(bb.center.x, bb.min.y) - center, bb.extents.y, 1 << _vehicleLayer);
+                GizmoDrawRay(center, new Vector2(bb.center.x, bb.max.y) - center, bb.extents.y, 1 << _vehicleLayer);
+
+                Gizmos.color = restoreColor;
+            }
+        }
+
         Gizmos.DrawWireSphere(transform.position, _pieceSelectorRadius);
     }
 }

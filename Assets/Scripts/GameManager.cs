@@ -192,7 +192,7 @@ public class GameManager : MonoBehaviour
                             plRender.material = PlayerMaterials[i];
                 }
 
-                if (PlayerCount == 2)
+                if (true || PlayerCount == 2)
                 {
                     var camDirectorObj = new GameObject();
                     camDirectorObj.name = "CameraDirector";
@@ -227,7 +227,11 @@ public class GameManager : MonoBehaviour
                         bool left = (i % 2) == 0;
                         bool dead = players[i].health <= 0;
 
-                        cameraManager.GameUIs[i].HealthMeter.text = string.Format("Health: {0}%", (int) Math.Round(players[i].health));
+                        int healthUI = (int)Math.Round(players[i].health);
+                        if (healthUI < 0)
+                            healthUI = 0;
+
+                        cameraManager.GameUIs[i].HealthMeter.text = string.Format("Health: {0}%", healthUI);
 
                         if (left)
                             teamLeftAlive += dead ? 0 : 1;
@@ -272,7 +276,7 @@ public class GameManager : MonoBehaviour
                     float time = Time.time;
                     while ((Time.time - time) < 1)
                     {
-                        Announcements.alpha = 1.0f - (Time.time - time);
+                        Announcements.alpha = Time.time - time;
                         yield return null;
                     }
                 }
@@ -293,7 +297,7 @@ public class GameManager : MonoBehaviour
                     float time = Time.time;
                     while ((Time.time - time) < 1)
                     {
-                        Announcements.alpha = Time.time - time;
+                        Announcements.alpha = 1.0f - (Time.time - time); 
                         yield return null;
                     }
                 }
